@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités régionales — Onyx Infos</title>
+<meta name="description" content="Toute l'actualité de votre région : Île-de-France, PACA, Bretagne, Occitanie, Grand-Est, Nouvelle-Aquitaine et DOM-TOM.">
+<link rel="icon" type="image/svg+xml" href="onyx-logo.svg">
+<link rel="canonical" href="https://onyx-infos.fr/regions.html">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#080808;--noir2:#111111;--noir3:#1a1a1a;
+  --rouge:#cc0000;--w:#f5f5f0;--w2:rgba(245,245,240,.7);--w3:rgba(245,245,240,.4);
+  --mid:#555550;
+  --D:'Playfair Display',serif;--B:'Barlow',sans-serif;--C:'Barlow Condensed',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--B);background:var(--noir);color:var(--w);-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--noir2)}::-webkit-scrollbar-thumb{background:#8b0000}
+
+nav{background:var(--noir2);border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;z-index:100}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;max-width:1400px;margin:0 auto}
+.nav-logo{display:flex;flex-direction:column;line-height:1;text-decoration:none}
+.nav-logo span:first-child{font-family:var(--C);font-size:1.6rem;font-weight:900;color:var(--w)}
+.nav-logo span:last-child{font-family:var(--C);font-size:.55rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--rouge)}
+
+/* HERO */
+.hero-region{background:var(--noir2);border-bottom:2px solid var(--rouge);padding:48px 40px;text-align:center}
+.hero-region h1{font-family:var(--D);font-size:2.4rem;font-weight:900;margin-bottom:8px}
+.hero-region p{font-size:.85rem;color:var(--w2);max-width:600px;margin:0 auto}
+
+/* CARTE RÉGIONS */
+.regions-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:rgba(255,255,255,.06);max-width:1400px;margin:40px auto;padding:0 40px}
+.region-card{background:var(--noir2);padding:40px 24px;cursor:pointer;transition:all .2s;border-bottom:3px solid transparent;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;text-decoration:none}
+.region-card:hover{background:var(--noir3);border-bottom-color:var(--rouge)}
+.region-card:hover .region-icon{color:var(--rouge)}
+.region-icon{color:rgba(245,245,240,.25);transition:color .2s}
+.region-name{font-family:var(--D);font-size:1.1rem;font-weight:900;color:var(--w)}
+.region-desc{font-size:.68rem;color:var(--mid);font-family:var(--B)}
+
+/* ARTICLES RÉGION */
+.region-articles{max-width:1400px;margin:0 auto;padding:0 40px 60px}
+.region-header{display:flex;align-items:center;justify-content:space-between;padding:32px 0 24px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:32px}
+.region-title{font-family:var(--D);font-size:1.8rem;font-weight:900}
+.region-count{font-family:var(--C);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.article-card{background:var(--noir2);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:border-color .2s}
+.article-card:hover{border-color:var(--rouge)}
+.article-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.article-card-img-placeholder{aspect-ratio:16/9;background:var(--noir3);display:flex;align-items:center;justify-content:center;font-family:var(--C);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.article-card-body{padding:16px}
+.article-card-cat{font-family:var(--C);font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--rouge);margin-bottom:8px}
+.article-card-title{font-family:var(--D);font-size:.95rem;font-weight:700;line-height:1.3;margin-bottom:8px;color:var(--w)}
+.article-card-desc{font-size:.72rem;color:var(--w2);line-height:1.6;margin-bottom:10px}
+.article-card-meta{font-family:var(--C);font-size:.55rem;color:var(--mid);display:flex;gap:6px}
+
+.vide{text-align:center;padding:60px;color:var(--mid);font-family:var(--C);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
+.loading{text-align:center;padding:60px;color:var(--mid);font-family:var(--C);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
+
+@media(max-width:768px){
+  .nav-inner,.hero-region,.regions-grid,.region-articles{padding-left:16px;padding-right:16px}
+  .hero-region{padding:32px 16px}
+  .hero-region h1{font-size:1.6rem}
+  .regions-grid{grid-template-columns:1fr 1fr;margin:24px auto}
+  .region-card{padding:20px}
+  .articles-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <span>ONYX</span>
+      <span>INFOS</span>
+    </a>
+    <a href="index.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.5);text-decoration:none;border:1px solid rgba(255,255,255,.1);padding:8px 16px">← Accueil</a>
+  </div>
+</nav>
+
+<div class="hero-region">
+  <h1>Actualités régionales</h1>
+  <p>Sélectionnez votre région pour accéder aux dernières actualités locales</p>
+</div>
+
+<div class="regions-grid" id="regions-grid">
+  <!-- Régions générées par JS -->
+</div>
+
+<div class="region-articles" id="region-articles" style="display:none">
+  <div class="region-header">
+    <span class="region-title" id="region-title"></span>
+    <span class="region-count" id="region-count"></span>
+  </div>
+  <div class="articles-grid" id="articles-grid"></div>
+</div>
+
+<script>
+const BIZZI_API = '/api';
+const BIZZI_TOKEN = 'hp5VXFqBfwdMtrrVGee6hEUnDWU-OWQPQJKneNxvojw';
+
+const REGIONS = [
+  {id:'Ile-de-France', name:'Île-de-France', desc:'Paris et sa région', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>`},
+  {id:'PACA', name:'PACA', desc:'Provence-Alpes-Côte d\'Azur', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`},
+  {id:'Bretagne', name:'Bretagne', desc:'Penn ar Bed', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2a10 10 0 0 1 0 20"/><path d="M2 12h10"/><path d="M12 2v10"/><path d="M12 12l7 7"/></svg>`},
+  {id:'Occitanie', name:'Occitanie', desc:'Toulouse et sa région', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>`},
+  {id:'Grand-Est', name:'Grand Est', desc:'Alsace, Lorraine, Champagne', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5"/><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="8.5" x2="22" y2="8.5"/><line x1="2" y1="15.5" x2="22" y2="15.5"/></svg>`},
+  {id:'Nouvelle-Aquitaine', name:'Nouvelle-Aquitaine', desc:'Bordeaux et sa région', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m8 0h3a2 2 0 0 0 2-2v-3"/><circle cx="12" cy="12" r="4"/></svg>`},
+  {id:'Pays-de-la-Loire', name:'Pays de la Loire', desc:'Nantes et sa région', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg>`},
+  {id:'Hauts-de-France', name:'Hauts-de-France', desc:'Lille et sa région', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>`},
+  {id:'DOM-TOM', name:'DOM-TOM', desc:'Réunion, Martinique, Guadeloupe', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`},
+];
+
+let regionActive = null;
+
+function afficherRegions() {
+  const grid = document.getElementById('regions-grid');
+  grid.innerHTML = REGIONS.map(r => `
+    <a class="region-card" href="region.html?r=${r.id}">
+      <div class="region-icon">${r.icon}</div>
+      <div class="region-name">${r.name}</div>
+      <div class="region-desc">${r.desc}</div>
+    </a>
+  `).join('');
+}
+
+async function chargerRegion(regionId) {
+  // Marquer la carte active
+  document.querySelectorAll('.region-card').forEach(c => c.classList.remove('active'));
+  const card = document.getElementById('card-' + regionId);
+  if (card) card.classList.add('active');
+
+  const region = REGIONS.find(r => r.id === regionId);
+  regionActive = regionId;
+
+  const section = document.getElementById('region-articles');
+  const grid = document.getElementById('articles-grid');
+  const title = document.getElementById('region-title');
+  const count = document.getElementById('region-count');
+
+  section.style.display = 'block';
+  title.textContent = region ? region.emoji + ' ' + region.name : regionId;
+  count.textContent = 'Chargement...';
+  grid.innerHTML = '<div class="loading">Chargement des articles...</div>';
+
+  // Scroll vers les articles
+  setTimeout(() => section.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+
+  try {
+    // Charger depuis l'API avec filtre région
+    const r = await fetch(BIZZI_API + '/content/list?limit=50', {
+      headers: {'Authorization': 'Bearer ' + BIZZI_TOKEN}
+    });
+    const data = await r.json();
+
+    // Filtrer par région (ou afficher tous si pas encore de région dans les articles)
+    const articles = data
+      .filter(a => !a.region || a.region === regionId)
+      .slice(0, 20)
+      .map(a => ({
+        cat: a.category || 'Région',
+        title: a.topic,
+        desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
+        image: a.image_url || '',
+        time: new Date(a.created_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
+        idx: data.indexOf(a)
+      }));
+
+    count.textContent = articles.length + ' article' + (articles.length > 1 ? 's' : '');
+
+    if (articles.length === 0) {
+      grid.innerHTML = '<div class="vide">Aucun article pour cette région pour le moment.<br>Le pipeline génère du contenu régional toutes les heures.</div>';
+      return;
+    }
+
+    grid.innerHTML = articles.map(a => {
+      const img = a.image ? (a.image.startsWith('/') ? 'https://onyx-infos.fr' + a.image : a.image) : '';
+      return `<div class="article-card" onclick="window.location.href='article.html?id=${a.idx}'">
+        ${img ? `<img src="${img}" alt="" onerror="this.style.display='none'">` : `<div class="article-card-img-placeholder">${a.cat}</div>`}
+        <div class="article-card-body">
+          <div class="article-card-cat">${a.cat}</div>
+          <div class="article-card-title">${a.title}</div>
+          <div class="article-card-desc">${a.desc}</div>
+          <div class="article-card-meta"><span>Onyx Infos</span><span>·</span><span>${a.time}</span></div>
+        </div>
+      </div>`;
+    }).join('');
+
+  } catch(e) {
+    grid.innerHTML = '<div class="vide">Erreur de chargement.</div>';
+  }
+}
+
+// Lire paramètre URL
+const params = new URLSearchParams(window.location.search);
+const regionParam = params.get('region');
+
+afficherRegions();
+if (regionParam) chargerRegion(regionParam);
+</script>
+</body>
+</html>

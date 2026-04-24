@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onyx Infos — L'actualité française et internationale en temps réel</title>
+<meta name="description" content="Onyx Infos, votre journal en ligne. Politique, économie, sport, culture, technologie, santé et monde. L'info vérifiée 24h/24, 7j/7.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Onyx Infos">
+<meta property="og:title" content="Onyx Infos — L'actualité française et internationale en temps réel">
+<meta property="og:description" content="Onyx Infos, votre journal en ligne. Politique, économie, sport, culture, technologie, santé et monde. L'info vérifiée 24h/24, 7j/7.">
+<meta property="og:image" content="https://onyx-infos.fr/onyx-logo.svg">
+<meta property="og:url" content="https://onyx-infos.fr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Onyx Infos — L'actualité en temps réel">
+<meta name="twitter:description" content="Politique, économie, sport, culture, technologie, santé et monde. L'info vérifiée 24h/24.">
+<link rel="canonical" href="https://onyx-infos.fr/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsMediaOrganization",
+  "name": "Onyx Infos",
+  "url": "https://onyx-infos.fr",
+  "logo": "https://onyx-infos.fr/onyx-logo.svg",
+  "description": "Journal en ligne d'actualité française et internationale",
+  "sameAs": [],
+  "publishingPrinciples": "https://onyx-infos.fr"
+}
+</script>
+<link rel="icon" type="image/svg+xml" href="onyx-logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#080808;
+  --noir2:#111111;
+  --noir3:#1a1a1a;
+  --rouge:#cc0000;
+  --rouge2:#ff1a1a;
+  --rouge3:#8b0000;
+  --w:#f5f5f0;
+  --w2:rgba(245,245,240,.7);
+  --w3:rgba(245,245,240,.4);
+  --mid:#555550;
+  --D:'Playfair Display',serif;
+  --B:'Barlow',sans-serif;
+  --C:'Barlow Condensed',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--B);background:var(--noir);color:var(--w);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--noir2)}
+::-webkit-scrollbar-thumb{background:var(--rouge3)}
+
+/* ── TICKER ── */
+.ticker{
+  background:var(--rouge);
+  padding:7px 0;
+  overflow:hidden;
+  position:relative;
+  z-index:200;
+}
+.ticker-inner{
+  display:flex;
+  gap:0;
+  animation:tickerScroll 35s linear infinite;
+  white-space:nowrap;
+}
+.ticker-item{
+  font-family:var(--C);font-size:.72rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:#fff;padding:0 32px;
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+}
+.ticker-sep{color:rgba(255,255,255,.4);font-size:.5rem}
+@keyframes tickerScroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,8,8,.97);
+  border-bottom:3px solid var(--rouge);
+  backdrop-filter:blur(12px);
+}
+.nav-top{
+  padding:16px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:12px;
+  text-decoration:none;
+}
+.nav-logo img{width:44px;height:44px;object-fit:contain}
+.nav-logo-text{
+  font-family:var(--D);font-size:1.5rem;font-weight:900;
+  color:var(--w);letter-spacing:-.02em;line-height:1;
+}
+.nav-logo-text span{color:var(--rouge)}
+.nav-date{
+  font-size:.65rem;font-weight:500;color:var(--w3);
+  letter-spacing:.1em;text-transform:uppercase;
+}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.nav-btn{
+  font-family:var(--C);font-size:.65rem;font-weight:700;
+  padding:7px 16px;border-radius:3px;cursor:pointer;
+  letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.15);
+  background:transparent;color:var(--w2);
+  transition:all .18s;
+}
+.nav-btn:hover{border-color:var(--rouge);color:var(--w)}
+.nav-btn-primary{
+  background:var(--rouge);border-color:var(--rouge);color:#fff;
+}
+.nav-btn-primary:hover{background:var(--rouge2)}
+
+/* Barre catégories */
+.nav-cats{
+  padding:0 48px;
+  display:flex;gap:2px;overflow-x:auto;
+  scrollbar-width:none;
+}
+.nav-cats::-webkit-scrollbar{display:none}
+.nav-cat{
+  font-family:var(--C);font-size:.7rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:10px 16px;color:var(--w3);
+  cursor:pointer;border-bottom:3px solid transparent;
+  transition:all .15s;white-space:nowrap;
+  background:none;border-top:none;border-left:none;border-right:none;
+}
+.nav-cat:hover{color:var(--w);border-bottom-color:rgba(204,0,0,.4)}
+.nav-cat.active{color:var(--rouge);border-bottom-color:var(--rouge)}
+
+/* ── LIVE INDICATOR ── */
+.live-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--C);font-size:.62rem;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;background:var(--rouge);
+  padding:3px 9px;border-radius:2px;
+}
+.live-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#fff;animation:livePulse 1.2s infinite;
+}
+@keyframes livePulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.4;transform:scale(0.8)}
+}
+
+/* ── HERO ── */
+.hero{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:1px;
+  background:rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  max-height:580px;
+}
+
+.hero-main{
+  position:relative;overflow:hidden;
+  background:var(--noir2);
+  cursor:pointer;
+}
+.hero-main-img{
+  width:100%;height:100%;object-fit:cover;
+  opacity:.55;transition:opacity .4s;
+  background:linear-gradient(135deg,#1a1a1a,#2a0000);
+  min-height:400px;
+}
+.hero-main:hover .hero-main-img{opacity:.65}
+.hero-main-content{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:32px;
+  background:linear-gradient(to top,rgba(8,8,8,.97) 0%,rgba(8,8,8,.7) 50%,transparent 100%);
+}
+.hero-cat{margin-bottom:10px}
+.hero-title{
+  font-family:var(--D);font-size:clamp(1.6rem,3vw,2.4rem);
+  font-weight:900;line-height:1.1;letter-spacing:-.02em;
+  color:var(--w);margin-bottom:10px;
+}
+.hero-meta{
+  font-size:.65rem;color:var(--w3);
+  display:flex;gap:14px;align-items:center;
+}
+
+/* Articles secondaires hero */
+.hero-side{
+  display:flex;flex-direction:column;gap:1px;
+  background:rgba(255,255,255,.06);
+}
+.hero-card{
+  flex:1;background:var(--noir2);
+  padding:20px;cursor:pointer;
+  transition:background .18s;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;overflow:hidden;min-height:130px;
+}
+.hero-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--noir2),var(--noir3));
+  transition:opacity .2s;
+}
+.hero-card:hover{background:var(--noir3)}
+.hero-card:hover::before{opacity:.6}
+.hero-card-content{position:relative;z-index:1}
+.hero-card-title{
+  font-family:var(--D);font-size:.95rem;font-weight:700;
+  line-height:1.25;color:var(--w);margin-bottom:6px;
+}
+.hero-card-meta{font-size:.6rem;color:var(--w3)}
+
+/* ── ACTU SECTION ── */
+.section{padding:40px 48px;max-width:1200px;margin:0 auto}
+.section-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:24px;
+  padding-bottom:14px;
+  border-bottom:3px solid var(--rouge);
+}
+.section-title{
+  font-family:var(--C);font-size:1.1rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--w);
+}
+.section-more{
+  font-family:var(--C);font-size:.62rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--rouge);cursor:pointer;
+  display:flex;align-items:center;gap:5px;
+  background:none;border:none;
+  transition:color .15s;
+}
+.section-more:hover{color:var(--rouge2)}
+
+/* Grille articles */
+.articles-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:rgba(255,255,255,.06);
+}
+.article-card{
+  background:var(--noir);padding:20px;
+  cursor:pointer;transition:background .18s;
+  display:flex;flex-direction:column;gap:10px;
+}
+.article-card:hover{background:var(--noir2)}
+.article-card-img{
+  width:100%;aspect-ratio:16/9;object-fit:cover;
+  background:var(--noir3);border:none;
+  display:block;position:relative;overflow:hidden;
+}
+.article-card-img-placeholder{
+  width:100%;aspect-ratio:16/9;
+  background:linear-gradient(135deg,var(--noir2),var(--noir3));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--C);font-size:.55rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--mid);
+}
+.article-card-cat{
+  font-family:var(--C);font-size:.58rem;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--rouge);
+}
+.article-card-title{
+  font-family:var(--D);font-size:.92rem;font-weight:700;
+  line-height:1.3;color:var(--w);
+}
+.article-card-desc{
+  font-size:.72rem;color:var(--w3);line-height:1.6;
+  flex:1;
+}
+.article-card-meta{
+  font-size:.58rem;color:var(--mid);
+  display:flex;gap:8px;align-items:center;
+  padding-top:8px;border-top:1px solid rgba(255,255,255,.05);
+}
+
+/* ── SECTION FEATURED (grande + petites) ── */
+.featured-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:1px;background:rgba(255,255,255,.06);
+}
+.featured-main{
+  padding:28px;background:var(--noir);cursor:pointer;
+  transition:background .18s;
+}
+.featured-main:hover{background:var(--noir2)}
+.featured-main-title{
+  font-family:var(--D);font-size:clamp(1.2rem,2.5vw,1.8rem);
+  font-weight:900;line-height:1.15;color:var(--w);
+  margin-bottom:12px;letter-spacing:-.01em;
+}
+.featured-main-desc{
+  font-size:.8rem;color:var(--w2);line-height:1.75;margin-bottom:14px;
+}
+.featured-side{
+  display:flex;flex-direction:column;gap:1px;
+  background:rgba(255,255,255,.06);
+}
+.featured-mini{
+  flex:1;padding:16px 20px;background:var(--noir);
+  cursor:pointer;transition:background .18s;
+  display:flex;flex-direction:column;gap:6px;
+  justify-content:center;
+}
+.featured-mini:hover{background:var(--noir2)}
+.featured-mini-title{
+  font-family:var(--D);font-size:.82rem;font-weight:700;
+  line-height:1.3;color:var(--w);
+}
+
+/* ── BARRE BREAKING NEWS ── */
+.breaking{
+  background:var(--rouge3);
+  padding:12px 48px;
+  display:flex;align-items:center;gap:16px;
+  border-top:1px solid rgba(255,255,255,.1);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+.breaking-label{
+  font-family:var(--C);font-size:.62rem;font-weight:800;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:#fff;background:var(--rouge);
+  padding:3px 10px;border-radius:2px;flex-shrink:0;
+}
+.breaking-text{
+  font-family:var(--C);font-size:.78rem;font-weight:600;
+  color:rgba(255,255,255,.85);overflow:hidden;
+  white-space:nowrap;text-overflow:ellipsis;
+}
+
+/* ── NEWSLETTER ── */
+.newsletter{
+  background:var(--noir2);
+  border-top:3px solid var(--rouge);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:40px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:40px;
+}
+.newsletter-text h3{
+  font-family:var(--D);font-size:1.4rem;font-weight:900;
+  color:var(--w);margin-bottom:6px;
+}
+.newsletter-text p{font-size:.78rem;color:var(--w3)}
+.newsletter-form{display:flex;gap:8px;flex-shrink:0}
+.newsletter-input{
+  padding:11px 18px;background:var(--noir3);
+  border:1px solid rgba(255,255,255,.12);
+  color:var(--w);font-size:.78rem;font-family:var(--B);
+  outline:none;border-radius:2px;width:280px;
+  transition:border-color .15s;
+}
+.newsletter-input:focus{border-color:var(--rouge)}
+.newsletter-input::placeholder{color:var(--mid)}
+.newsletter-btn{
+  font-family:var(--C);font-size:.68rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:11px 24px;background:var(--rouge);
+  color:#fff;border:none;cursor:pointer;border-radius:2px;
+  transition:background .15s;
+}
+.newsletter-btn:hover{background:var(--rouge2)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--noir2);
+  border-top:3px solid var(--rouge);
+  padding:40px 48px 24px;
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;margin-bottom:32px;
+}
+.footer-brand .logo-text{
+  font-family:var(--D);font-size:1.3rem;font-weight:900;
+  color:var(--w);margin-bottom:8px;
+}
+.footer-brand .logo-text span{color:var(--rouge)}
+.footer-brand p{font-size:.72rem;color:var(--w3);line-height:1.7;margin-top:8px}
+.footer-col h4{
+  font-family:var(--C);font-size:.62rem;font-weight:800;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rouge);margin-bottom:12px;
+}
+.footer-col a{
+  display:block;font-size:.72rem;color:var(--w3);
+  text-decoration:none;margin-bottom:7px;
+  transition:color .15s;
+}
+.footer-col a:hover{color:var(--w)}
+.footer-bottom{
+  padding-top:20px;border-top:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:.62rem;color:var(--mid);
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .articles-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-top{padding:12px 16px;flex-wrap:wrap;gap:8px}
+  .nav-top .nav-actions{width:100%;justify-content:space-between}
+  .nav-top .nav-actions input{width:100px}
+  .nav-cats{padding:0 16px}
+  .hero{grid-template-columns:1fr;max-height:none}
+  .hero-main{min-height:380px}
+  .hero-side{display:none}
+  .section{padding:24px 16px}
+  .articles-grid{grid-template-columns:1fr}
+  .featured-grid{grid-template-columns:1fr}
+  .breaking{padding:10px 16px}
+  .newsletter{flex-direction:column;padding:24px 16px}
+  .newsletter-form{flex-direction:column;width:100%}
+  .newsletter-input{width:100%}
+  .footer-top{grid-template-columns:1fr;gap:24px}
+  footer{padding:24px 16px}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+  /* Masquer Archives sur mobile, garder juste recherche + abonner */
+  .nav-actions a[href="onyx-archives.html"]{font-size:.55rem;padding:6px 8px}
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.hero-main-content{animation:fadeUp .6s ease both}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item"><span class="ticker-sep">●</span> Actualités en continu 24h/24 7j/7 <span class="ticker-sep">●</span></span>
+    <span class="ticker-item"><span class="ticker-sep">●</span> Politique · Économie · Sport · Culture <span class="ticker-sep">●</span></span>
+    <span class="ticker-item"><span class="ticker-sep">●</span> Onyx Infos — L'info en temps réel <span class="ticker-sep">●</span></span>
+    <span class="ticker-item"><span class="ticker-sep">●</span> Suivez-nous sur les réseaux sociaux <span class="ticker-sep">●</span></span>
+    <span class="ticker-item"><span class="ticker-sep">●</span> Actualités en continu 24h/24 7j/7 <span class="ticker-sep">●</span></span>
+    <span class="ticker-item"><span class="ticker-sep">●</span> Politique · Économie · Sport · Culture <span class="ticker-sep">●</span></span>
+    <span class="ticker-item"><span class="ticker-sep">●</span> Onyx Infos — L'info en temps réel <span class="ticker-sep">●</span></span>
+    <span class="ticker-item"><span class="ticker-sep">●</span> Suivez-nous sur les réseaux sociaux <span class="ticker-sep">●</span></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-top">
+    <a class="nav-logo" href="#">
+      <div>
+        <img src="onyx-logo.svg" alt="Onyx Infos" style="height:36px;width:auto;display:block">
+        <div class="nav-date" id="nav-date"></div>
+      </div>
+    </a>
+    <div style="display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end">
+      <div style="display:flex;align-items:center;gap:8px;background:#1a1a1a;border:1px solid rgba(255,255,255,.1);padding:6px 12px;border-radius:2px;flex:1;max-width:260px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(245,245,240,.5)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="search-input" type="text" placeholder="Rechercher..." style="background:none;border:none;outline:none;color:#f5f5f0;font-family:Barlow,sans-serif;font-size:.75rem;width:100%;min-width:0" oninput="rechercherArticles(this.value)">
+      </div>
+      <a href="onyx-archives.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">Archives</a>
+      <a href="region.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">🗺 Régions</a>
+      <button class="nav-btn nav-btn-primary" style="white-space:nowrap">S'abonner</button>
+    </div>
+  </div>
+  <div class="nav-cats">
+    <button class="nav-cat active" onclick="filterCat('all',this)">À la une</button>
+    <button class="nav-cat" onclick="filterCat('Politique',this)">Politique</button>
+    <button class="nav-cat" onclick="filterCat('Economie',this)">Économie</button>
+    <button class="nav-cat" onclick="filterCat('Societe',this)">Société</button>
+    <button class="nav-cat" onclick="filterCat('Monde',this)">Monde</button>
+    <button class="nav-cat" onclick="filterCat('Sport',this)">Sport</button>
+    <button class="nav-cat" onclick="filterCat('Culture',this)">Culture</button>
+    <button class="nav-cat" onclick="filterCat('Tech',this)">Tech</button>
+    <button class="nav-cat" onclick="filterCat('Sante',this)">Santé</button>
+    <button class="nav-cat" onclick="filterCat('Environnement',this)">Environnement</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-main" id="hero-main" style="cursor:pointer">
+    <div class="hero-main-img" id="hero-img-div" style="background:linear-gradient(135deg,#1a0000 0%,#330000 40%,#1a1a1a 100%);min-height:480px"></div>
+    <div class="hero-main-content">
+      <div class="hero-cat" style="margin-bottom:12px">
+        <span class="live-badge"><span class="live-dot"></span>En direct</span>
+      </div>
+      <h1 class="hero-title" id="hero-title">Les dernières actualités du moment, analysées et vérifiées par nos journalistes</h1>
+      <div class="hero-meta">
+        <span>Par la rédaction d'Onyx Infos</span>
+        <span>·</span>
+        <span id="hero-time"></span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-side">
+    <div class="hero-card" id="hero-card-1" style="cursor:pointer">
+      <div class="hero-card-content">
+        <div class="article-card-cat" id="hero-card-1-cat" style="margin-bottom:6px">Politique</div>
+        <div class="hero-card-title" id="hero-card-1-title">L'actualité politique nationale décryptée par nos experts</div>
+        <div class="hero-card-meta" id="hero-card-1-time">Il y a 23 min</div>
+      </div>
+    </div>
+    <div class="hero-card" id="hero-card-2" style="cursor:pointer">
+      <div class="hero-card-content">
+        <div class="article-card-cat" id="hero-card-2-cat" style="margin-bottom:6px">Économie</div>
+        <div class="hero-card-title" id="hero-card-2-title">Les marchés financiers et l'économie mondiale en temps réel</div>
+        <div class="hero-card-meta" id="hero-card-2-time">Il y a 45 min</div>
+      </div>
+    </div>
+    <div class="hero-card" id="hero-card-3" style="cursor:pointer">
+      <div class="hero-card-content">
+        <div class="article-card-cat" id="hero-card-3-cat" style="margin-bottom:6px">Monde</div>
+        <div class="hero-card-title" id="hero-card-3-title">Géopolitique internationale — les événements qui font l'actu</div>
+        <div class="hero-card-meta" id="hero-card-3-time">Il y a 1h</div>
+      </div>
+    </div>
+  </div>
+</section>
+      <div class="hero-cat" style="margin-bottom:12px">
+        <span class="live-badge"><span class="live-dot"></span>En direct</span>
+      </div>
+      <h1 class="hero-title" id="hero-title">Les dernières actualités du moment, analysées et vérifiées par nos journalistes</h1>
+      <div class="hero-meta">
+        <span>Par la rédaction d'Onyx Infos</span>
+        <span>·</span>
+        <span id="hero-time"></span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-side" id="hero-side">
+    <div class="hero-card" id="hero-card-1">
+      <div class="hero-card-content">
+        <div class="article-card-cat" style="margin-bottom:6px">Politique</div>
+        <div class="hero-card-title">L'actualité politique nationale décryptée par nos experts</div>
+        <div class="hero-card-meta">Il y a 23 min</div>
+      </div>
+    </div>
+    <div class="hero-card" id="hero-card-2">
+      <div class="hero-card-content">
+        <div class="article-card-cat" style="margin-bottom:6px">Économie</div>
+        <div class="hero-card-title">Les marchés financiers et l'économie mondiale en temps réel</div>
+        <div class="hero-card-meta">Il y a 45 min</div>
+      </div>
+    </div>
+    <div class="hero-card" id="hero-card-3">
+      <div class="hero-card-content">
+        <div class="article-card-cat" style="margin-bottom:6px">Monde</div>
+        <div class="hero-card-title">Géopolitique internationale — les événements qui font l'actu</div>
+        <div class="hero-card-meta">Il y a 1h</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BREAKING -->
+<div class="breaking">
+  <span class="breaking-label">⚡ Breaking</span>
+  <span class="breaking-text" id="breaking-text">Suivez toute l'actualité en temps réel sur Onyx Infos — Politique · Économie · Sport · Culture · Monde</span>
+</div>
+
+<!-- SECTION À LA UNE -->
+<div class="section" id="section-une">
+  <div class="section-header">
+    <span class="section-title">À la une</span>
+    <a href="onyx-archives.html" class="section-more">Voir tout →</a>
+  </div>
+  <div class="articles-grid" id="articles-grid">
+    <!-- Articles générés par JS -->
+  </div>
+</div>
+
+<!-- SECTION FEATURED POLITIQUE -->
+<div id="section-Politique" style="background:var(--noir2);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05)">
+  <div class="section" style="padding-top:32px;padding-bottom:32px">
+    <div class="section-header">
+      <span class="section-title">Politique</span>
+      <a href="onyx-archives.html?cat=Politique" class="section-more">Voir tout →</a>
+    </div>
+    <div class="featured-grid">
+      <div class="featured-main">
+        <div class="article-card-cat" style="margin-bottom:10px">Politique nationale</div>
+        <h2 class="featured-main-title">Analyse approfondie du paysage politique français contemporain</h2>
+        <p class="featured-main-desc">Nos journalistes spécialisés décryptent les enjeux, les rapports de force et les grandes tendances qui façonnent la vie politique nationale. Une information rigoureuse, vérifiée et contextualisée.</p>
+        <div class="article-card-meta">
+          <span class="live-badge" style="font-size:.55rem;padding:2px 7px">Analyse</span>
+          <span style="font-size:.62rem;color:var(--mid)">Par la rédaction · Il y a 2h</span>
+        </div>
+      </div>
+      <div class="featured-side">
+        <div class="featured-mini">
+          <div class="article-card-cat">Institutions</div>
+          <div class="featured-mini-title">Le fonctionnement des institutions républicaines expliqué</div>
+          <div class="article-card-meta" style="font-size:.58rem;color:var(--mid)">Il y a 3h</div>
+        </div>
+        <div class="featured-mini">
+          <div class="article-card-cat">Élections</div>
+          <div class="featured-mini-title">Calendrier électoral et enjeux des prochains scrutins</div>
+          <div class="article-card-meta" style="font-size:.58rem;color:var(--mid)">Il y a 4h</div>
+        </div>
+        <div class="featured-mini">
+          <div class="article-card-cat">Europe</div>
+          <div class="featured-mini-title">La France et ses partenaires européens face aux défis actuels</div>
+          <div class="article-card-meta" style="font-size:.58rem;color:var(--mid)">Il y a 5h</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION ÉCONOMIE -->
+<div class="section" id="section-Economie">
+  <div class="section-header">
+    <span class="section-title">Économie</span>
+    <a href="onyx-archives.html?cat=Economie" class="section-more">Voir tout →</a>
+  </div>
+  <div class="articles-grid" id="eco-grid"></div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="newsletter-text">
+    <h3>L'essentiel chaque matin</h3>
+    <p>Recevez la sélection des articles incontournables directement dans votre boîte mail.</p>
+  </div>
+  <div class="newsletter-form">
+    <input type="email" class="newsletter-input" placeholder="Votre adresse email">
+    <button class="newsletter-btn">S'inscrire</button>
+  </div>
+</div>
+
+<!-- SECTION SPORT -->
+<div id="section-Sport" style="background:var(--noir2);border-top:1px solid rgba(255,255,255,.05)">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Sport</span>
+      <a href="onyx-archives.html?cat=Sport" class="section-more">Voir tout →</a>
+    </div>
+    <div class="articles-grid" id="sport-grid"></div>
+  </div>
+</div>
+
+<!-- SECTION CULTURE -->
+<div class="section" id="section-Culture">
+  <div class="section-header">
+    <span class="section-title">Culture & Société</span>
+    <a href="onyx-archives.html?cat=Culture" class="section-more">Voir tout →</a>
+  </div>
+  <div class="articles-grid" id="culture-grid"></div>
+</div>
+
+<!-- SECTION TECH -->
+<div id="section-Tech" style="background:var(--noir2);border-top:1px solid rgba(255,255,255,.05)">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Tech</span>
+      <a href="onyx-archives.html?cat=Tech" class="section-more">Voir tout →</a>
+    </div>
+    <div class="articles-grid" id="tech-grid"></div>
+  </div>
+</div>
+
+<!-- SECTION SANTÉ -->
+<div id="section-Sante" class="section">
+  <div class="section-header">
+    <span class="section-title">Santé</span>
+    <a href="onyx-archives.html?cat=Sante" class="section-more">Voir tout →</a>
+  </div>
+  <div class="articles-grid" id="sante-grid"></div>
+</div>
+
+<!-- SECTION ENVIRONNEMENT -->
+<div id="section-Environnement" style="background:var(--noir2);border-top:1px solid rgba(255,255,255,.05)">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-title">Environnement</span>
+      <a href="onyx-archives.html?cat=Environnement" class="section-more">Voir tout →</a>
+    </div>
+    <div class="articles-grid" id="environnement-grid"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="onyx-logo.svg" alt="Onyx Infos" style="height:36px;width:auto;margin-bottom:8px">
+      <p>L'information en temps réel. Politique, économie, sport, culture et actualité internationale. Une rédaction engagée pour une information rigoureuse et indépendante.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Rubriques</h4>
+      <a href="#">Politique</a>
+      <a href="#">Économie</a>
+      <a href="#">Monde</a>
+      <a href="#">Société</a>
+      <a href="#">Sport</a>
+      <a href="#">Culture</a>
+    </div>
+    <div class="footer-col">
+      <h4>Journal</h4>
+      <a href="a-propos.html">À propos</a>
+      <a href="contact.html">Contact</a>
+      <a href="onyx-archives.html">Archives</a>
+      <a href="regions.html">Régions</a>
+    </div>
+    <div class="footer-col">
+      <h4>Légal</h4>
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Onyx Infos — Tous droits réservés</span>
+    <span>L'info en temps réel</span>
+  </div>
+</footer>
+
+<script>
+// Date et heure
+const now = new Date();
+const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
+document.getElementById('nav-date').textContent = now.toLocaleDateString('fr-FR', opts);
+document.getElementById('hero-time').textContent = now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+
+// ── CONFIG BIZZI ──
+const BIZZI_API   = '/api';
+const BIZZI_TOKEN = 'hp5VXFqBfwdMtrrVGee6hEUnDWU-OWQPQJKneNxvojw';
+const CAT_MAP = {'Actualite du jour':'Actualité','Economie locale':'Économie','Innovation':'Tech','Politique française':'Politique','Économie et marchés':'Économie','Sport actualité':'Sport','Culture et société':'Culture'};
+
+// ── ARTICLES STATIQUES (fallback) ──
+const FALLBACK = {
+  une:[
+    {cat:'Politique',title:'Actualité politique : les décisions qui marquent la semaine',desc:'Analyse complète des dernières décisions politiques et de leurs impacts.',time:'Il y a 12 min'},
+    {cat:'Économie',title:'Conjoncture économique : les indicateurs clés à surveiller',desc:'Les derniers chiffres de l\'économie française et les perspectives.',time:'Il y a 34 min'},
+    {cat:'Monde',title:'Géopolitique : les tensions internationales sous la loupe',desc:'Tour d\'horizon des principaux foyers de tension géopolitique.',time:'Il y a 58 min'},
+    {cat:'Société',title:'Société : les grandes tendances qui transforment la France',desc:'Les évolutions sociales qui redessinent le visage du pays.',time:'Il y a 1h'},
+  ],
+  eco:[
+    {cat:'Marchés',title:'Les marchés boursiers face aux incertitudes mondiales',desc:'Analyse des tendances boursières et perspectives des investisseurs.',time:'Il y a 2h'},
+    {cat:'Entreprises',title:'PME et grands groupes : le tissu économique en mutation',desc:'Comment les entreprises s\'adaptent aux nouveaux défis économiques.',time:'Il y a 3h'},
+    {cat:'Social',title:'Emploi et pouvoir d\'achat : les Français face à l\'inflation',desc:'Bilan des dernières données sur l\'emploi et le niveau de vie.',time:'Il y a 4h'},
+    {cat:'Finance',title:'Banques et fintech : la révolution numérique du secteur',desc:'Les innovations qui transforment le secteur bancaire.',time:'Il y a 5h'},
+  ],
+  sport:[
+    {cat:'Football',title:'Ligue 1 : résultats, classement et temps forts',desc:'Retour sur les matchs du week-end et analyse du classement.',time:'Il y a 1h'},
+    {cat:'Tennis',title:'Grand Chelem : les performances des joueurs français',desc:'Bilan des Français sur le circuit ATP et WTA cette saison.',time:'Il y a 2h'},
+    {cat:'Rugby',title:'Top 14 : les clubs français au sommet de l\'Europe',desc:'Analyse des performances en compétitions européennes.',time:'Il y a 3h'},
+    {cat:'Cyclisme',title:'Tour de France : l\'équipe de France en ordre de bataille',desc:'Présentation de la stratégie et des ambitions.',time:'Il y a 4h'},
+  ],
+  culture:[
+    {cat:'Cinéma',title:'Palmarès et tendances : le cinéma français rayonne',desc:'Les films qui s\'imposent aux box-offices.',time:'Il y a 2h'},
+    {cat:'Musique',title:'Scène musicale française : les artistes à suivre',desc:'Portraits des artistes qui marquent l\'actualité musicale.',time:'Il y a 3h'},
+    {cat:'Littérature',title:'Rentrée littéraire : les romans incontournables',desc:'Notre sélection des meilleurs ouvrages de la saison.',time:'Il y a 4h'},
+    {cat:'Patrimoine',title:'Culture et patrimoine : préserver notre héritage',desc:'Les initiatives pour protéger le patrimoine français.',time:'Il y a 5h'},
+  ]
+};
+
+// ── RENDU ARTICLES ──
+let ARTICLES_GLOBAL = [];
+function renderArticles(containerId, articles) {
+  const grid = document.getElementById(containerId);
+  if (!grid) return;
+  grid.innerHTML = articles.map((a, i) => {
+    const slug = a.slug || '';
+    const img = a.image ? (a.image.startsWith('/') ? 'https://onyx-infos.fr' + a.image : a.image) : '';
+    return `<div class="article-card" style="cursor:pointer" data-slug="${slug}">
+      ${img ? `<img src="${img}" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block" onerror="this.style.display='none'">` : `<div class="article-card-img-placeholder">${a.cat}</div>`}
+      <div class="article-card-cat">${a.cat}${a.bizzi?' <span style="color:#cc0000;font-size:.5rem">● IA</span>':''}</div>
+      <div class="article-card-title">${a.title}</div>
+      <div class="article-card-desc">${a.desc}</div>
+      <div class="article-card-meta"><span>Onyx Infos</span><span>·</span><span>${a.time}</span></div>
+    </div>`;
+  }).join('');
+  grid.querySelectorAll('.article-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const slug = card.dataset.slug;
+      if (slug) window.location.href = '/article/' + slug;
+    });
+  });
+}
+
+// ── MODAL ARTICLE ──
+function ouvrirArticle(encodedContent, title) {
+  const content = decodeURIComponent(encodedContent);
+  const pageUrl = encodeURIComponent(window.location.href);
+  const pageTitre = encodeURIComponent(title);
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto';
+  overlay.innerHTML = `<div style="background:#111;border-top:3px solid #cc0000;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;padding:24px">
+    <div style="font-family:Playfair Display,serif;font-size:1.3rem;font-weight:900;color:#f5f5f0;margin-bottom:16px;line-height:1.2">${title}</div>
+    <div style="font-size:.8rem;color:rgba(245,245,240,.75);line-height:1.85;white-space:pre-wrap">${content}</div>
+    <div style="margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)">
+      <div style="font-family:Barlow Condensed,sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,245,240,.4);margin-bottom:12px">Partager</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${pageUrl}" target="_blank" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:#1877f2;color:#fff;text-decoration:none;font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitre}" target="_blank" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:#000;color:#fff;text-decoration:none;font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M4 4l16 16M4 20 20 4" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M3 4h4l14 16h-4z" fill="white"/></svg>X / Twitter
+        </a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}" target="_blank" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:#0077b5;color:#fff;text-decoration:none;font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2" fill="white"/></svg>LinkedIn
+        </a>
+        <a href="https://wa.me/?text=${pageTitre}%20${pageUrl}" target="_blank" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:#25d366;color:#fff;text-decoration:none;font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp
+        </a>
+        <button onclick="navigator.clipboard.writeText(window.location.href).then(()=>this.textContent='✓ Copié !')" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;color:rgba(245,245,240,.6);border:1px solid rgba(255,255,255,.15);font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copier le lien
+        </button>
+      </div>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;background:transparent;color:rgba(245,245,240,.5);border:1px solid rgba(255,255,255,.1);cursor:pointer">Fermer</button>
+    </div>
+  </div>`;
+  overlay.addEventListener('click', e => { if(e.target===overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
+// ── CHARGEMENT API BIZZI ──
+async function chargerArticlesBizzi() {
+  try {
+    const r = await fetch(BIZZI_API + '/content/list', {
+      headers: {'Authorization': 'Bearer ' + BIZZI_TOKEN}
+    });
+    if (!r.ok) throw new Error();
+    const data = await r.json();
+    if (data && data.length > 0) {
+      const articles = data.map((a, globalIdx) => ({
+        globalIdx,
+        slug: a.slug || '',
+        cat: a.category || 'Info',
+        title: a.title || a.topic || "",
+        desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
+        content: a.content,
+        image: a.image_url || '',
+        time: new Date(a.created_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
+        bizzi: true
+      }));
+      ARTICLES_GLOBAL = data;
+      window._TOUS_ARTICLES = articles;
+      renderArticles('articles-grid', articles.slice(0,4));
+
+      // Mettre à jour le hero avec le dernier article
+      const top = articles[0];
+      if (top) {
+        const heroTitle = document.getElementById('hero-title');
+        const heroTime = document.getElementById('hero-time');
+        const heroImgDiv = document.getElementById('hero-img-div');
+        const heroMain = document.getElementById('hero-main');
+
+        if (heroTitle) heroTitle.textContent = top.title;
+        if (heroTime) heroTime.textContent = top.time;
+        if (heroImgDiv && top.image) {
+          const imgUrl = top.image.startsWith('/') ? 'https://onyx-infos.fr' + top.image : top.image;
+          heroImgDiv.style.backgroundImage = `url(${imgUrl})`;
+          heroImgDiv.style.backgroundSize = 'cover';
+          heroImgDiv.style.backgroundPosition = 'center';
+        }
+        if (heroMain) {
+          heroMain.onclick = () => { const a = articles[0]; if(a && a.slug) window.location.href = '/article/' + a.slug; };
+        }
+
+        // Mettre à jour les cartes latérales
+        [1,2,3].forEach(i => {
+          const a = articles[i];
+          if (!a) return;
+          const cat = document.getElementById('hero-card-'+i+'-cat');
+          const title = document.getElementById('hero-card-'+i+'-title');
+          const time = document.getElementById('hero-card-'+i+'-time');
+          const card = document.getElementById('hero-card-'+i);
+          if (cat) cat.textContent = a.cat;
+          if (title) title.textContent = a.title;
+          if (time) time.textContent = a.time;
+          if (card) card.onclick = () => { if(a.slug) window.location.href = '/article/' + a.slug; };
+        });
+      }
+      return;
+    }
+  } catch(e) {}
+  // Fallback → articles-cache.json
+  try {
+    const rc = await fetch('articles-cache.json');
+    const cache = await rc.json();
+    if (cache && cache.length > 0) {
+      const articles = cache.map(a => ({
+        slug: a.slug || '',
+        cat: a.category || CAT_MAP[a.topic] || 'Info',
+        title: a.title || a.topic || "",
+        desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
+        content: a.content,
+        image: a.image_url || '',
+        time: new Date(a.created_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
+        bizzi: true
+      }));
+      renderArticles('articles-grid', articles.slice(0,4));
+      return;
+    }
+  } catch(e2) {}
+  renderArticles('articles-grid', FALLBACK.une);
+}
+
+// ── INIT ──
+// Afficher d'abord le fallback
+renderArticles('articles-grid', FALLBACK.une);
+renderArticles('eco-grid',      FALLBACK.eco);
+renderArticles('sport-grid',    FALLBACK.sport);
+renderArticles('culture-grid',  FALLBACK.culture);
+
+// Puis remplacer par les vrais articles Bizzi
+chargerArticlesBizzi();
+
+async function rechercherArticles(query) {
+  if (!query || query.length < 2) { chargerArticlesBizzi(); return; }
+  const q = query.toLowerCase();
+  const grid = document.getElementById('articles-grid');
+  if (!grid) return;
+  grid.innerHTML = '<div style="padding:40px;text-align:center;font-size:.72rem;color:var(--mid)">Recherche en cours...</div>';
+  try {
+    const r = await fetch(BIZZI_API + '/content/list?limit=200', {headers:{'Authorization':'Bearer ' + BIZZI_TOKEN}});
+    const data = await r.json();
+    const articles = data
+      .filter(a => a.topic.toLowerCase().includes(q))
+      .map(a => ({
+        slug: a.slug || '',
+        cat: a.category || 'Info',
+        title: a.title || a.topic || "",
+        desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
+        content: a.content,
+        image: a.image_url || '',
+        time: new Date(a.created_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
+        bizzi: true
+      }));
+    if (articles.length > 0) {
+      renderArticles('articles-grid', articles);
+    } else {
+      grid.innerHTML = '<div style="padding:40px;text-align:center;font-size:.72rem;color:var(--mid)">Aucun résultat pour "' + query + '"</div>';
+    }
+  } catch(e) {
+    grid.innerHTML = '<div style="padding:40px;text-align:center;font-size:.72rem;color:var(--mid)">Erreur de recherche.</div>';
+  }
+}
+
+function filterCat(cat, el) {
+  document.querySelectorAll('.nav-cat').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  chargerParCategorie(cat);
+  // Scroll vers la section correspondante
+  const SCROLL_MAP = {
+    'all': 'section-une',
+    'Politique': 'section-Politique',
+    'Economie': 'section-Economie',
+    'Sport': 'section-Sport',
+    'Culture': 'section-Culture',
+    'Societe': 'section-Culture',
+    'Monde': 'section-une',
+    'Tech': 'section-Tech',
+    'Sante': 'section-Sante',
+    'Environnement': 'section-Environnement',
+  };
+  const targetId = SCROLL_MAP[cat] || 'section-une';
+  const target = document.getElementById(targetId);
+  if (target) setTimeout(() => {
+    const navH = document.querySelector('nav') ? document.querySelector('nav').offsetHeight : 0;
+    const top = target.getBoundingClientRect().top + window.scrollY - navH - 8;
+    window.scrollTo({top, behavior:'smooth'});
+  }, 100);
+}
+
+async function chargerParCategorie(cat) {
+  const grid = document.getElementById('articles-grid');
+
+  // Mapping cat → grille de section en bas
+  const GRID_MAP = {
+    'Economie': 'eco-grid',
+    'Sport': 'sport-grid',
+    'Culture': 'culture-grid',
+    'Societe': 'culture-grid',
+    'Tech': 'tech-grid',
+    'Sante': 'sante-grid',
+    'Environnement': 'environnement-grid',
+  };
+  const sectionGridId = GRID_MAP[cat];
+  const sectionGrid = sectionGridId ? document.getElementById(sectionGridId) : null;
+
+  // Si la catégorie a une section dédiée en bas, ne pas toucher à la grille "À la une"
+  if (!sectionGridId && grid) {
+    grid.innerHTML = '<div style="padding:40px;text-align:center;font-size:.72rem;color:var(--mid)">Chargement...</div>';
+  }
+  if (sectionGrid) {
+    sectionGrid.innerHTML = '<div style="padding:20px;text-align:center;font-size:.72rem;color:var(--mid)">Chargement...</div>';
+  }
+
+  if (cat === 'all') {
+    chargerArticlesBizzi();
+    return;
+  }
+
+  try {
+    const url = BIZZI_API + '/content/list?category=' + encodeURIComponent(cat) + '&limit=8';
+    const r = await fetch(url, {headers:{'Authorization':'Bearer ' + BIZZI_TOKEN}});
+    const data = await r.json();
+    if (data && data.length > 0) {
+      const articles = data.map(a => ({
+        slug: a.slug || '',
+        cat: a.category || 'Info',
+        title: a.title || a.topic || "",
+        desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
+        content: a.content,
+        image: a.image_url || '',
+        time: new Date(a.created_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
+        bizzi: true
+      }));
+      // Si section dédiée → remplir seulement cette section
+      if (sectionGrid) {
+        renderArticles(sectionGridId, articles);
+      } else if (grid) {
+        renderArticles('articles-grid', articles);
+      }
+    } else {
+      const msg = '<div style="padding:20px;text-align:center;font-size:.72rem;color:var(--mid)">Aucun article pour le moment.</div>';
+      if (sectionGrid) sectionGrid.innerHTML = msg;
+      else if (grid) grid.innerHTML = msg;
+    }
+  } catch(e) {
+    if (sectionGrid) sectionGrid.innerHTML = '';
+    else if (grid) renderArticles('articles-grid', FALLBACK.une);
+  }
+}
+
+// Rafraîchissement automatique toutes les 5 minutes
+setInterval(() => {
+  if (document.querySelector('div[style*="position:fixed"]')) return;
+  chargerArticlesBizzi();
+}, 5 * 60 * 1000);
+
+// Charger toutes les sections au démarrage
+async function chargerSection(cat, gridId) {
+  try {
+    const r = await fetch(BIZZI_API + '/content/list?category=' + encodeURIComponent(cat) + '&limit=4', {headers:{'Authorization':'Bearer ' + BIZZI_TOKEN}});
+    const data = await r.json();
+    if (data && data.length > 0) {
+      const articles = data.map(a => ({
+        slug: a.slug || '',
+        cat: a.category || cat,
+        title: a.title || a.topic || "",
+        desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
+        content: a.content,
+        image: a.image_url || '',
+        time: new Date(a.created_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
+        bizzi: true
+      }));
+      renderArticles(gridId, articles);
+    }
+  } catch(e) {}
+}
+
+chargerSection('Economie', 'eco-grid');
+chargerSection('Sport', 'sport-grid');
+chargerSection('Culture', 'culture-grid');
+chargerSection('Tech', 'tech-grid');
+chargerSection('Sante', 'sante-grid');
+chargerSection('Environnement', 'environnement-grid');
+</script>
+</body>
+</html>

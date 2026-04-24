@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archives — Onyx Infos</title>
+<link rel="icon" type="image/svg+xml" href="onyx-logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#080808;--noir2:#111111;--noir3:#1a1a1a;
+  --rouge:#cc0000;--rouge2:#ff1a1a;--rouge3:#8b0000;
+  --w:#f5f5f0;--w2:rgba(245,245,240,.7);--w3:rgba(245,245,240,.4);
+  --mid:#555550;
+  --D:'Playfair Display',serif;--B:'Barlow',sans-serif;--C:'Barlow Condensed',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--B);background:var(--noir);color:var(--w);-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--noir2)}::-webkit-scrollbar-thumb{background:var(--rouge3)}
+
+/* NAV */
+nav{background:var(--noir2);border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;z-index:100}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;max-width:1400px;margin:0 auto}
+.nav-logo{display:flex;flex-direction:column;line-height:1}
+.nav-logo span:first-child{font-family:var(--C);font-size:1.6rem;font-weight:900;letter-spacing:.02em;color:var(--w)}
+.nav-logo span:last-child{font-family:var(--C);font-size:.55rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--rouge);margin-top:-2px}
+
+/* SEARCH BAR */
+.search-hero{background:var(--noir2);border-bottom:2px solid var(--rouge);padding:48px 40px}
+.search-hero-inner{max-width:900px;margin:0 auto;text-align:center}
+.search-hero h1{font-family:var(--D);font-size:2.2rem;font-weight:900;margin-bottom:8px}
+.search-hero p{font-size:.8rem;color:var(--w2);margin-bottom:32px}
+.search-bar{display:flex;align-items:center;background:var(--noir3);border:1px solid rgba(255,255,255,.15);border-radius:2px;padding:0 20px;gap:12px;max-width:600px;margin:0 auto}
+.search-bar input{flex:1;background:none;border:none;outline:none;color:var(--w);font-family:var(--B);font-size:.9rem;padding:16px 0}
+.search-bar input::placeholder{color:var(--mid)}
+
+/* FILTRES */
+.filtres{max-width:1400px;margin:0 auto;padding:24px 40px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filtre-label{font-family:var(--C);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-right:8px}
+.filtre-btn{font-family:var(--C);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;background:transparent;color:var(--w2);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .2s}
+.filtre-btn:hover,.filtre-btn.active{background:var(--rouge);color:var(--w);border-color:var(--rouge)}
+
+/* GRILLE */
+.archives-main{max-width:1400px;margin:0 auto;padding:0 40px 60px}
+.archives-count{font-family:var(--C);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);padding:8px 0 24px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:32px}
+.archives-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.archive-card{background:var(--noir2);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:border-color .2s}
+.archive-card:hover{border-color:var(--rouge)}
+.archive-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.archive-card-img-placeholder{aspect-ratio:16/9;background:var(--noir3);display:flex;align-items:center;justify-content:center;font-family:var(--C);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.archive-card-body{padding:16px}
+.archive-card-cat{font-family:var(--C);font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--rouge);margin-bottom:8px}
+.archive-card-title{font-family:var(--D);font-size:1rem;font-weight:700;line-height:1.3;margin-bottom:8px;color:var(--w)}
+.archive-card-desc{font-size:.73rem;color:var(--w2);line-height:1.6;margin-bottom:12px}
+.archive-card-meta{font-family:var(--C);font-size:.55rem;color:var(--mid);display:flex;gap:8px}
+
+/* PAGINATION */
+.pagination{display:flex;gap:8px;justify-content:center;padding:40px 0;flex-wrap:wrap}
+.page-btn{font-family:var(--C);font-size:.65rem;font-weight:700;letter-spacing:.05em;padding:8px 16px;background:transparent;color:var(--w2);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .2s}
+.page-btn:hover,.page-btn.active{background:var(--rouge);color:var(--w);border-color:var(--rouge)}
+
+/* VIDE */
+.vide{text-align:center;padding:80px 40px;color:var(--mid);font-size:.8rem}
+
+@media(max-width:600px){
+  .nav-top,.search-hero,.filtres,.archives-main{padding-left:16px;padding-right:16px}
+  .archives-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <a href="/" style="text-decoration:none">
+      <div class="nav-logo">
+        <span>ONYX</span>
+        <span>INFOS</span>
+      </div>
+    </a>
+    <a href="/" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;border:1px solid rgba(255,255,255,.1);padding:8px 16px">← Accueil</a>
+  </div>
+</nav>
+
+<div class="search-hero">
+  <div class="search-hero-inner">
+    <h1>Archives & Recherche</h1>
+    <p>Retrouvez tous les articles publiés par Onyx Infos</p>
+    <div class="search-bar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(245,245,240,.4)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="search-input" type="text" placeholder="Rechercher un article..." oninput="filtrer()">
+    </div>
+  </div>
+</div>
+
+<div class="filtres">
+  <span class="filtre-label">Catégorie :</span>
+  <button class="filtre-btn active" onclick="setCat('',this)">Toutes</button>
+  <button class="filtre-btn" onclick="setCat('Une',this)">À la une</button>
+  <button class="filtre-btn" onclick="setCat('Politique',this)">Politique</button>
+  <button class="filtre-btn" onclick="setCat('Economie',this)">Économie</button>
+  <button class="filtre-btn" onclick="setCat('Monde',this)">Monde</button>
+  <button class="filtre-btn" onclick="setCat('Sport',this)">Sport</button>
+  <button class="filtre-btn" onclick="setCat('Culture',this)">Culture</button>
+  <button class="filtre-btn" onclick="setCat('Tech',this)">Tech</button>
+  <button class="filtre-btn" onclick="setCat('Sante',this)">Santé</button>
+  <button class="filtre-btn" onclick="setCat('Societe',this)">Société</button>
+  <button class="filtre-btn" onclick="setCat('Environnement',this)">Environnement</button>
+</div>
+
+<div class="archives-main">
+  <div class="archives-count" id="count">Chargement...</div>
+  <div class="archives-grid" id="grid"></div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<script>
+const BIZZI_API = '/api';
+const BIZZI_TOKEN = 'hp5VXFqBfwdMtrrVGee6hEUnDWU-OWQPQJKneNxvojw';
+const PAR_PAGE = 12;
+
+let TOUS = [];
+let FILTRES = [];
+let PAGE = 1;
+let CAT_ACTIVE = '';
+
+async function charger() {
+  try {
+    const r = await fetch(BIZZI_API + '/content/list?limit=500', {
+      headers: {'Authorization': 'Bearer ' + BIZZI_TOKEN}
+    });
+    const data = await r.json();
+    TOUS = data.map(a => ({
+      slug: a.slug || '',
+      cat: a.category || 'Une',
+      title: a.topic,
+      desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,180) + '...',
+      image: a.image_url || '',
+      time: new Date(a.created_at).toLocaleString('fr-FR', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}),
+    }));
+  } catch(e) {
+    document.getElementById('grid').innerHTML = '<div class="vide">Impossible de charger les articles.</div>';
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const catUrl = params.get('cat');
+  if (catUrl) {
+    CAT_ACTIVE = catUrl;
+    document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active'));
+    const btn = [...document.querySelectorAll('.filtre-btn')].find(b => (b.getAttribute('onclick')||'').includes(`'${catUrl}'`));
+    if (btn) btn.classList.add('active');
+  }
+
+  filtrer();
+}
+
+function setCat(cat, el) {
+  CAT_ACTIVE = cat;
+  PAGE = 1;
+  document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  filtrer();
+}
+
+function filtrer() {
+  const q = (document.getElementById('search-input').value || '').toLowerCase().trim();
+  FILTRES = TOUS.filter(a => {
+    const catOk = !CAT_ACTIVE || a.cat === CAT_ACTIVE;
+    const qOk = !q || a.title.toLowerCase().includes(q);
+    return catOk && qOk;
+  });
+  PAGE = 1;
+  afficher();
+}
+
+function afficher() {
+  const grid = document.getElementById('grid');
+  const count = document.getElementById('count');
+  const pagination = document.getElementById('pagination');
+
+  count.textContent = FILTRES.length + ' article' + (FILTRES.length > 1 ? 's' : '') + ' trouvé' + (FILTRES.length > 1 ? 's' : '');
+
+  const debut = (PAGE - 1) * PAR_PAGE;
+  const page_arts = FILTRES.slice(debut, debut + PAR_PAGE);
+
+  if (page_arts.length === 0) {
+    grid.innerHTML = '<div class="vide">Aucun article trouvé.</div>';
+    pagination.innerHTML = '';
+    return;
+  }
+
+  grid.innerHTML = page_arts.map(a => {
+    const img = a.image ? (a.image.startsWith('/') ? 'https://onyx-infos.fr' + a.image : a.image) : '';
+    return `<div class="archive-card" onclick="if('${a.slug}') window.location.href='/article/${a.slug}'">
+      ${img ? `<img src="${img}" alt="" onerror="this.style.display='none'">` : `<div class="archive-card-img-placeholder">${a.cat}</div>`}
+      <div class="archive-card-body">
+        <div class="archive-card-cat">${a.cat}</div>
+        <div class="archive-card-title">${a.title}</div>
+        <div class="archive-card-desc">${a.desc}</div>
+        <div class="archive-card-meta"><span>Onyx Infos</span><span>·</span><span>${a.time}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Pagination
+  const total_pages = Math.ceil(FILTRES.length / PAR_PAGE);
+  if (total_pages <= 1) { pagination.innerHTML = ''; return; }
+
+  let pages_html = '';
+  if (PAGE > 1) pages_html += `<button class="page-btn" onclick="goPage(${PAGE-1})">← Précédent</button>`;
+  for (let p = Math.max(1, PAGE-2); p <= Math.min(total_pages, PAGE+2); p++) {
+    pages_html += `<button class="page-btn ${p===PAGE?'active':''}" onclick="goPage(${p})">${p}</button>`;
+  }
+  if (PAGE < total_pages) pages_html += `<button class="page-btn" onclick="goPage(${PAGE+1})">Suivant →</button>`;
+  pagination.innerHTML = pages_html;
+}
+
+function goPage(p) {
+  PAGE = p;
+  afficher();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function ouvrirArticle(idx) {
+  const a = FILTRES[idx];
+  if (!a) return;
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:999;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto';
+  const img = a.image ? (a.image.startsWith('/') ? 'https://onyx-infos.fr' + a.image : a.image) : '';
+  const pageUrl = encodeURIComponent(window.location.href);
+  const pageTitre = encodeURIComponent(a.title);
+  overlay.innerHTML = `<div style="background:#111;border-top:3px solid #cc0000;max-width:720px;width:100%;padding:32px">
+    ${img ? `<img src="${img}" style="width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:24px;display:block" onerror="this.style.display='none'">` : ''}
+    <div style="font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#cc0000;margin-bottom:12px">${a.cat}</div>
+    <div style="font-family:Playfair Display,serif;font-size:1.6rem;font-weight:900;color:#f5f5f0;margin-bottom:24px;line-height:1.2">${a.title}</div>
+    <div style="font-size:.82rem;color:rgba(245,245,240,.8);line-height:1.9;white-space:pre-wrap">${(a.content||'').replace(/#{1,6}\s*/g,'').replace(/\*\*/g,'')}</div>
+    <div style="margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)">
+      <div style="font-family:Barlow Condensed,sans-serif;font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,245,240,.4);margin-bottom:12px">Partager</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${pageUrl}" target="_blank" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:#1877f2;color:#fff;text-decoration:none;font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitre}" target="_blank" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:#000;color:#fff;text-decoration:none;font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M3 4h4l14 16h-4z" fill="white"/><path d="M4 20L20 4" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>X / Twitter
+        </a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}" target="_blank" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:#0077b5;color:#fff;text-decoration:none;font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn
+        </a>
+        <a href="https://wa.me/?text=${pageTitre}%20${pageUrl}" target="_blank" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:#25d366;color:#fff;text-decoration:none;font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp
+        </a>
+        <button onclick="navigator.clipboard.writeText(window.location.href).then(()=>this.textContent='✓ Copié !')" style="display:flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;color:rgba(245,245,240,.6);border:1px solid rgba(255,255,255,.15);font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copier le lien
+        </button>
+      </div>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;background:transparent;color:rgba(245,245,240,.5);border:1px solid rgba(255,255,255,.1);cursor:pointer">Fermer</button>
+    </div>
+  </div>`;
+  overlay.addEventListener('click', e => { if(e.target===overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
+charger();
+
+// Lire le paramètre cat dans l'URL
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get('cat');
+  if (cat) {
+    const btn = [...document.querySelectorAll('.filtre-btn')].find(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${cat}'`));
+    if (btn) setCat(cat, btn);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onyx Infos — Article</title>
+<link rel="icon" type="image/svg+xml" href="onyx-logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#080808;--noir2:#111;--noir3:#1a1a1a;
+  --rouge:#cc0000;--rouge2:#ff1a1a;
+  --w:#f5f5f0;--w2:rgba(245,245,240,.75);--w3:rgba(245,245,240,.4);
+  --mid:#555550;
+  --D:'Playfair Display',serif;
+  --B:'Barlow',sans-serif;
+  --C:'Barlow Condensed',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--B);background:var(--noir);color:var(--w);-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{
+  background:rgba(8,8,8,.97);border-bottom:3px solid var(--rouge);
+  padding:14px 48px;display:flex;align-items:center;gap:14px;
+  position:sticky;top:0;z-index:100;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{width:32px;height:32px;object-fit:contain}
+.nav-logo-text{font-family:var(--C);font-size:1rem;font-weight:800;letter-spacing:.04em;color:var(--w)}
+.nav-logo-text span{color:var(--rouge)}
+.nav-back{
+  margin-left:auto;font-family:var(--C);font-size:.65rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--w3);text-decoration:none;
+  display:flex;align-items:center;gap:6px;
+  transition:color .15s;
+}
+.nav-back:hover{color:var(--w)}
+
+/* HERO ARTICLE */
+.article-hero{
+  position:relative;overflow:hidden;
+  max-height:500px;background:var(--noir2);
+}
+.article-hero img{
+  width:100%;height:500px;object-fit:cover;
+  opacity:.6;display:block;
+}
+.article-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,.6) 40%, transparent 100%);
+}
+.article-hero-content{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:48px;max-width:860px;
+}
+.article-source{
+  font-family:var(--C);font-size:.62rem;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rouge);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.article-source::before{
+  content:'';width:24px;height:2px;background:var(--rouge);
+}
+.article-hero-title{
+  font-family:var(--D);font-size:clamp(1.6rem,4vw,2.8rem);
+  font-weight:900;line-height:1.1;letter-spacing:-.02em;
+  color:var(--w);margin-bottom:16px;
+}
+.article-meta{
+  display:flex;align-items:center;gap:14px;
+  font-size:.65rem;color:var(--w3);
+  font-family:var(--C);font-weight:600;letter-spacing:.06em;
+}
+.article-meta-sep{color:var(--rouge);font-size:.5rem}
+.badge-ia{
+  background:rgba(204,0,0,.15);border:1px solid rgba(204,0,0,.3);
+  color:var(--rouge);padding:2px 8px;border-radius:2px;
+  font-size:.55rem;font-weight:800;letter-spacing:.1em;
+}
+
+/* CONTENU */
+.article-wrap{
+  max-width:780px;margin:0 auto;
+  padding:48px 24px 80px;
+}
+
+/* Parser le markdown */
+.article-body h1{
+  font-family:var(--D);font-size:1.8rem;font-weight:900;
+  color:var(--w);margin:32px 0 16px;line-height:1.2;
+  padding-bottom:12px;border-bottom:2px solid var(--rouge);
+}
+.article-body h2{
+  font-family:var(--D);font-size:1.3rem;font-weight:700;
+  color:var(--w);margin:28px 0 12px;line-height:1.25;
+  display:flex;align-items:center;gap:10px;
+}
+.article-body h2::before{
+  content:'';width:4px;height:1.3rem;background:var(--rouge);flex-shrink:0;
+}
+.article-body h3{
+  font-family:var(--C);font-size:.9rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--rouge);margin:20px 0 8px;
+}
+.article-body p{
+  font-size:.92rem;line-height:1.85;color:var(--w2);
+  margin-bottom:16px;
+}
+.article-body strong{color:var(--w);font-weight:600}
+.article-body ul,.article-body ol{
+  margin:12px 0 16px 0;padding:0;list-style:none;
+}
+.article-body li{
+  font-size:.88rem;line-height:1.7;color:var(--w2);
+  padding:8px 12px 8px 20px;
+  border-left:2px solid var(--rouge);
+  margin-bottom:6px;background:rgba(204,0,0,.04);
+}
+.article-body blockquote{
+  border-left:4px solid var(--rouge);
+  padding:16px 20px;margin:20px 0;
+  background:rgba(204,0,0,.05);
+  font-style:italic;color:var(--w2);font-size:.9rem;
+}
+.article-body hr{
+  border:none;border-top:1px solid rgba(255,255,255,.08);
+  margin:28px 0;
+}
+
+/* Chapeau */
+.article-chapeau{
+  font-family:var(--D);font-size:1.1rem;font-style:italic;
+  color:var(--w2);line-height:1.7;
+  padding:20px 0 24px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  margin-bottom:28px;
+}
+
+/* Footer article */
+.article-footer{
+  margin-top:48px;padding-top:24px;
+  border-top:3px solid var(--rouge);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.article-footer-source{
+  font-family:var(--C);font-size:.65rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--mid);
+}
+.article-back-btn{
+  font-family:var(--C);font-size:.65rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:10px 20px;background:var(--rouge);
+  color:#fff;border:none;cursor:pointer;
+  text-decoration:none;border-radius:2px;
+  transition:background .15s;
+}
+.article-back-btn:hover{background:var(--rouge2)}
+
+/* No image fallback */
+.article-hero-placeholder{
+  width:100%;height:300px;
+  background:linear-gradient(135deg,#1a0000,#330000,#1a1a1a);
+  display:flex;align-items:center;justify-content:center;
+}
+
+@media(max-width:768px){
+  nav{padding:12px 16px}
+  .article-hero-content{padding:24px 16px}
+  .article-wrap{padding:24px 16px 48px}
+  .article-body h1{font-size:1.4rem}
+  .article-body h2{font-size:1.1rem}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.article-wrap{animation:fadeUp .5s ease both}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="onyx-logo.svg" alt="Onyx Infos" style="height:36px;width:auto;display:block">
+  </a>
+  <a class="nav-back" href="index.html">← Retour à l'accueil</a>
+</nav>
+
+<!-- HERO -->
+<div class="article-hero" id="article-hero">
+  <div class="article-hero-placeholder"></div>
+</div>
+
+<!-- CONTENU -->
+<div class="article-wrap">
+  <div class="article-chapeau" id="article-chapeau"></div>
+  <div class="article-body" id="article-body"></div>
+  <div class="article-footer">
+    <div class="article-footer-source" id="article-footer-source"></div>
+    <a class="article-back-btn" href="index.html">← Retour aux actualités</a>
+  </div>
+</div>
+
+<script>
+// Récupérer les paramètres URL
+const params = new URLSearchParams(window.location.search);
+const articleId = params.get('id');
+const BIZZI_API = 'https://bizzi.fr/api';
+const BIZZI_TOKEN = localStorage.getItem('onyx_bizzi_token') || 'hp5VXFqBfwdMtrrVGee6hEUnDWU-OWQPQJKneNxvojw';
+
+// Charger l'article depuis l'API
+async function chargerArticle() {
+  try {
+    const r = await fetch(BIZZI_API + '/content/list', {
+      headers: {'Authorization': 'Bearer ' + BIZZI_TOKEN}
+    });
+    const articles = await r.json();
+    const article = articleId ? articles.find((a,i) => String(i) === articleId) : articles[0];
+    if (article) afficherArticle(article);
+    else document.getElementById('article-chapeau').textContent = 'Article introuvable.';
+  } catch(e) {
+    document.getElementById('article-chapeau').textContent = 'Erreur de chargement.';
+  }
+}
+
+function afficherArticle(a) {
+  // Titre page
+  document.title = a.topic + ' — Onyx Infos';
+
+  // Image hero
+  const hero = document.getElementById('article-hero');
+  if (a.image_url) {
+    const img = a.image_url.startsWith('/') ? 'https://onyx-infos.fr' + a.image_url : a.image_url;
+    hero.innerHTML = `
+      <img src="${img}" alt="${a.topic}" onerror="this.parentElement.innerHTML='<div class=article-hero-placeholder></div>'">
+      <div class="article-hero-overlay"></div>
+      <div class="article-hero-content">
+        <div class="article-source"><span class="badge-ia">● IA</span> ${a.source || 'Onyx Infos'}</div>
+        <h1 class="article-hero-title">${a.topic}</h1>
+        <div class="article-meta">
+          <span>Onyx Infos</span>
+          <span class="article-meta-sep">●</span>
+          <span>${new Date(a.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</span>
+          <span class="article-meta-sep">●</span>
+          <span>${new Date(a.created_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</span>
+        </div>
+      </div>`;
+  } else {
+    hero.innerHTML = `
+      <div class="article-hero-placeholder"></div>
+      <div class="article-hero-overlay"></div>
+      <div class="article-hero-content">
+        <div class="article-source"><span class="badge-ia">● IA</span> ${a.source || 'Onyx Infos'}</div>
+        <h1 class="article-hero-title">${a.topic}</h1>
+        <div class="article-meta">
+          <span>Onyx Infos</span>
+          <span class="article-meta-sep">●</span>
+          <span>${new Date(a.created_at).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</span>
+        </div>
+      </div>`;
+  }
+
+  // Contenu markdown → HTML
+  const content = a.content || '';
+  const lines = content.split('\n');
+  let html = '';
+  let firstPara = true;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) { html += ''; continue; }
+
+    if (line.startsWith('### ')) {
+      html += `<h3>${line.slice(4)}</h3>`;
+    } else if (line.startsWith('## ')) {
+      html += `<h2>${line.slice(3)}</h2>`;
+    } else if (line.startsWith('# ')) {
+      // Ignorer le titre H1 — déjà dans le hero
+    } else if (line.startsWith('- ') || line.startsWith('* ')) {
+      html += `<ul><li>${line.slice(2).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</li></ul>`;
+    } else if (line.startsWith('> ')) {
+      html += `<blockquote>${line.slice(2)}</blockquote>`;
+    } else if (line.startsWith('---')) {
+      html += '<hr>';
+    } else {
+      const formatted = line.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+      if (firstPara && !line.startsWith('#')) {
+        document.getElementById('article-chapeau').innerHTML = formatted;
+        firstPara = false;
+      } else {
+        html += `<p>${formatted}</p>`;
+      }
+    }
+  }
+
+  document.getElementById('article-body').innerHTML = html;
+  document.getElementById('article-footer-source').textContent = `Source : ${a.source || 'Onyx Infos'} — Contenu généré par IA`;
+}
+
+chargerArticle();
+</script>
+</body>
+</html>
