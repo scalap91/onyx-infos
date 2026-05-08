@@ -78,7 +78,11 @@ nav{background:var(--noir2);border-bottom:1px solid rgba(255,255,255,.06);positi
         <span>INFOS</span>
       </div>
     </a>
-    <a href="/" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;border:1px solid rgba(255,255,255,.1);padding:8px 16px">← Accueil</a>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="/" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">← Accueil</a>
+      <a href="/equipe" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">L'équipe</a>
+      <a href="/regions.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">🗺 Régions</a>
+    </div>
   </div>
 </nav>
 
@@ -133,7 +137,7 @@ async function charger() {
     TOUS = data.map(a => ({
       slug: a.slug || '',
       cat: a.category || 'Une',
-      title: a.topic,
+      title: a.title,
       desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,180) + '...',
       image: a.image_url || '',
       time: new Date(a.created_at).toLocaleString('fr-FR', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}),
@@ -192,7 +196,7 @@ function afficher() {
 
   grid.innerHTML = page_arts.map(a => {
     const img = a.image ? (a.image.startsWith('/') ? 'https://onyx-infos.fr' + a.image : a.image) : '';
-    return `<div class="archive-card" onclick="if('${a.slug}') window.location.href='/article/${a.slug}'">
+    return `<div class="archive-card" ${a.slug ? `onclick="window.location.href='/article/${a.slug}'"` : ''}>
       ${img ? `<img src="${img}" alt="" onerror="this.style.display='none'">` : `<div class="archive-card-img-placeholder">${a.cat}</div>`}
       <div class="archive-card-body">
         <div class="archive-card-cat">${a.cat}</div>

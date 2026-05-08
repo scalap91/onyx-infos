@@ -67,6 +67,31 @@ nav{background:var(--noir2);border-bottom:1px solid rgba(255,255,255,.06);positi
   .articles-grid{grid-template-columns:1fr}
 }
 </style>
+
+<!-- JSON-LD : page d'aiguillage des éditions régionales -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://onyx-infos.fr/regions.html",
+  "name": "Actualités régionales — Onyx Infos",
+  "description": "Les 14 éditions régionales d'Onyx Infos. Choisissez votre région pour accéder aux dernières actualités locales.",
+  "url": "https://onyx-infos.fr/regions.html",
+  "isPartOf": {
+    "@type": "NewsMediaOrganization",
+    "name": "Onyx Infos",
+    "url": "https://onyx-infos.fr",
+    "logo": "https://onyx-infos.fr/onyx-logo.svg"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Onyx Infos", "item": "https://onyx-infos.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Régions", "item": "https://onyx-infos.fr/regions.html"}
+    ]
+  }
+}
+</script>
 </head>
 <body>
 
@@ -76,7 +101,11 @@ nav{background:var(--noir2);border-bottom:1px solid rgba(255,255,255,.06);positi
       <span>ONYX</span>
       <span>INFOS</span>
     </a>
-    <a href="index.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.5);text-decoration:none;border:1px solid rgba(255,255,255,.1);padding:8px 16px">← Accueil</a>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="index.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">← Accueil</a>
+      <a href="/equipe" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">L'équipe</a>
+      <a href="onyx-archives.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">Archives</a>
+    </div>
   </div>
 </nav>
 
@@ -110,6 +139,11 @@ const REGIONS = [
   {id:'Nouvelle-Aquitaine', name:'Nouvelle-Aquitaine', desc:'Bordeaux et sa région', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m8 0h3a2 2 0 0 0 2-2v-3"/><circle cx="12" cy="12" r="4"/></svg>`},
   {id:'Pays-de-la-Loire', name:'Pays de la Loire', desc:'Nantes et sa région', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg>`},
   {id:'Hauts-de-France', name:'Hauts-de-France', desc:'Lille et sa région', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>`},
+  {id:'Auvergne-Rhône-Alpes', name:'Auvergne-Rhône-Alpes', desc:'Lyon, Grenoble, Clermont', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5z"/><path d="M12 22V12"/><path d="M12 12l8-5"/><path d="M12 12L4 7"/></svg>`},
+  {id:'Bourgogne-Franche-Comté', name:'Bourgogne-Franche-Comté', desc:'Dijon, Besançon', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a9 13 0 0 1 0 18M12 3a9 13 0 0 0 0 18"/></svg>`},
+  {id:'Centre-Val de Loire', name:'Centre-Val de Loire', desc:'Orléans, Tours, Bourges', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 12h20M2 12c0-4 4-7 10-7s10 3 10 7M2 12c0 4 4 7 10 7s10-3 10-7"/></svg>`},
+  {id:'Normandie', name:'Normandie', desc:'Rouen, Caen, Le Havre', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 17l5-5 5 5 5-5 5 5"/><path d="M2 12l5-5 5 5 5-5 5 5"/></svg>`},
+  {id:'Corse', name:'Corse', desc:'Ajaccio, Bastia', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14 4l-2 2-2-2-2 2v3l-2 2 2 2v3l2 2 2-2 2 2 2-2v-3l2-2-2-2V6z"/></svg>`},
   {id:'DOM-TOM', name:'DOM-TOM', desc:'Réunion, Martinique, Guadeloupe', icon:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`},
 ];
 
@@ -149,15 +183,15 @@ async function chargerRegion(regionId) {
   setTimeout(() => section.scrollIntoView({behavior:'smooth', block:'start'}), 100);
 
   try {
-    // Charger depuis l'API avec filtre région
-    const r = await fetch(BIZZI_API + '/content/list?limit=50', {
+    // Appel direct de l'endpoint régional étanche (pas de filtre côté front, l'API filtre déjà)
+    const slug = regionId.toLowerCase().replace(/ /g, '-').replace(/é/g,'e').replace(/è/g,'e').replace(/ê/g,'e').replace(/ô/g,'o').replace(/à/g,'a').replace(/î/g,'i').replace(/ç/g,'c');
+    const r = await fetch(BIZZI_API + '/content/region/' + encodeURIComponent(slug) + '?limit=50', {
       headers: {'Authorization': 'Bearer ' + BIZZI_TOKEN}
     });
     const data = await r.json();
 
-    // Filtrer par région (ou afficher tous si pas encore de région dans les articles)
-    const articles = data
-      .filter(a => !a.region || a.region === regionId)
+    // Pas de filtre supplémentaire — l'API renvoie déjà uniquement cette région
+    const articles = (Array.isArray(data) ? data : [])
       .slice(0, 20)
       .map(a => ({
         cat: a.category || 'Région',

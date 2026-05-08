@@ -482,6 +482,7 @@ footer{
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(245,245,240,.5)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <input id="search-input" type="text" placeholder="Rechercher..." style="background:none;border:none;outline:none;color:#f5f5f0;font-family:Barlow,sans-serif;font-size:.75rem;width:100%;min-width:0" oninput="rechercherArticles(this.value)">
       </div>
+      <a href="/equipe" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">L'équipe</a>
       <a href="onyx-archives.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">Archives</a>
       <a href="regions.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">Régions</a>
       <button class="nav-btn nav-btn-primary" style="white-space:nowrap">S'abonner</button>
@@ -803,7 +804,8 @@ function renderArticles(containerId, articles) {
   grid.querySelectorAll('.article-card[data-key]').forEach(card => {
     card.addEventListener('click', () => {
       const idx = ARTICLE_STORE[card.dataset.key];
-      window.location.href = 'article.html?id=' + idx;
+      const slug = articles[idx] && articles[idx].slug;
+      if (slug && slug !== 'undefined') window.location.href = '/article/' + slug;
     });
   });
 }
@@ -872,7 +874,7 @@ const _chargerOriginal = chargerArticlesBizzi;
 // ── CHARGEMENT API BIZZI ──
 async function chargerArticlesBizzi() {
   try {
-    const r = await fetch(BIZZI_API + '/content/list?limit=200', {
+    const r = await fetch(REGION_ACTIVE ? BIZZI_API + '/content/region/' + encodeURIComponent(REGION_ACTIVE.toLowerCase().replace(/ /g, "-")) + '?limit=50' : BIZZI_API + '/content/list?limit=50', {
       headers: {'Authorization': 'Bearer ' + BIZZI_TOKEN}
     });
     if (!r.ok) throw new Error();
@@ -880,14 +882,15 @@ async function chargerArticlesBizzi() {
 
     // Filtrer strictement par région
     const data = REGION_ACTIVE
-      ? rawData.filter(a => a.region === REGION_ACTIVE)
+      ? rawData
       : rawData;
 
     if (data && data.length > 0) {
       const articles = data.map((a, globalIdx) => ({
         globalIdx: rawData.indexOf(a),
+        slug: a.slug || '',
         cat: a.category || 'Info',
-        title: a.topic,
+        title: a.title,
         desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
         content: a.content,
         image: a.image_url || '',
@@ -915,7 +918,10 @@ async function chargerArticlesBizzi() {
           heroImgDiv.style.backgroundPosition = 'center';
         }
         if (heroMain) {
-          heroMain.onclick = () => window.location.href = 'article.html?id=0';
+          heroMain.onclick = () => {
+            const slug = data[0] && data[0].slug;
+            if (slug && slug !== 'undefined') window.location.href = '/article/' + slug;
+          };
         }
 
         // Mettre à jour les cartes latérales
@@ -929,41 +935,53 @@ async function chargerArticlesBizzi() {
           if (cat) cat.textContent = a.cat;
           if (title) title.textContent = a.title;
           if (time) time.textContent = a.time;
-          if (card) card.onclick = () => window.location.href = 'article.html?id=' + i;
+          if (card) card.onclick = () => {
+            const slug = articles[i] && articles[i].slug;
+            if (slug && slug !== 'undefined') window.location.href = '/article/' + slug;
+          };
         });
       }
       return;
-    }
-  } catch(e) {}
-  // Fallback → articles-cache.json
-  try {
-    const rc = await fetch('articles-cache.json');
-    const cache = await rc.json();
-    if (cache && cache.length > 0) {
-      const articles = cache.map(a => ({
-        cat: a.category || CAT_MAP[a.topic] || 'Info',
-        title: a.topic,
-        desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
-        content: a.content,
-        image: a.image_url || '',
-        time: new Date(a.created_at).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
-        bizzi: true
-      }));
-      renderArticles('articles-grid', articles.slice(0,4));
+    } else {
+      // Édition régionale étanche : pas d'articles trouvés → message d'attente.
+      // SURTOUT PAS de fallback vers le national.
+      _afficherEditionVide();
       return;
     }
-  } catch(e2) {}
-  renderArticles('articles-grid', FALLBACK.une);
+  } catch(e) {
+    // Erreur API : message neutre, pas de fallback national
+    _afficherEditionVide('Connexion à la rédaction en cours…');
+  }
+}
+
+function _afficherEditionVide(message) {
+  const msg = message || ('Aucun article ' + (REGION_ACTIVE ? 'pour ' + REGION_ACTIVE : '') + ' pour le moment. Les agents bossent dessus, repassez d\'ici une heure.');
+  const html = '<div style="grid-column:1/-1;padding:60px 20px;text-align:center;color:rgba(245,245,240,.5);font-family:Barlow Condensed,sans-serif;font-size:.85rem;letter-spacing:.05em;line-height:1.6">' + msg + '</div>';
+  ['articles-grid','eco-grid','sport-grid','culture-grid','tech-grid','sante-grid','environnement-grid'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  });
+  // Vide le hero pour pas garder le précédent affiché
+  const heroTitle = document.getElementById('hero-title');
+  if (heroTitle) heroTitle.textContent = REGION_ACTIVE ? ('En attente — ' + REGION_ACTIVE) : 'En attente';
+  const heroMain = document.getElementById('hero-main');
+  if (heroMain) heroMain.onclick = null;
+  [1,2,3].forEach(i => {
+    const t = document.getElementById('hero-card-'+i+'-title');
+    const c = document.getElementById('hero-card-'+i+'-cat');
+    if (t) t.textContent = '—';
+    if (c) c.textContent = '';
+    const card = document.getElementById('hero-card-'+i);
+    if (card) card.onclick = null;
+  });
 }
 
 // ── INIT ──
-// Afficher d'abord le fallback
-renderArticles('articles-grid', FALLBACK.une);
-renderArticles('eco-grid',      FALLBACK.eco);
-renderArticles('sport-grid',    FALLBACK.sport);
-renderArticles('culture-grid',  FALLBACK.culture);
+// PAS de fallback FALLBACK.une (= national) à l'init.
+// On laisse les zones vides en attendant les vrais articles régionaux.
 
 // Puis remplacer par les vrais articles Bizzi
+const _urlParams = new URLSearchParams(window.location.search); const _r = _urlParams.get("r"); if (_r) REGION_ACTIVE = _r;
 chargerArticlesBizzi();
 
 async function rechercherArticles(query) {
@@ -973,13 +991,13 @@ async function rechercherArticles(query) {
   if (!grid) return;
   grid.innerHTML = '<div style="padding:40px;text-align:center;font-size:.72rem;color:var(--mid)">Recherche en cours...</div>';
   try {
-    const r = await fetch(BIZZI_API + '/content/list?limit=200', {headers:{'Authorization':'Bearer ' + BIZZI_TOKEN}});
+    const r = await fetch(REGION_ACTIVE ? BIZZI_API + '/content/region/' + encodeURIComponent(REGION_ACTIVE.toLowerCase().replace(/ /g, "-")) + '?limit=50' : BIZZI_API + '/content/list?limit=50', {headers:{'Authorization':'Bearer ' + BIZZI_TOKEN}});
     const data = await r.json();
     const articles = data
       .filter(a => a.topic.toLowerCase().includes(q))
       .map(a => ({
         cat: a.category || 'Info',
-        title: a.topic,
+        title: a.title,
         desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
         content: a.content,
         image: a.image_url || '',
@@ -1057,8 +1075,9 @@ async function chargerParCategorie(cat) {
     const data = await r.json();
     if (data && data.length > 0) {
       const articles = data.map(a => ({
+        slug: a.slug || '',
         cat: a.category || 'Info',
-        title: a.topic,
+        title: a.title,
         desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
         content: a.content,
         image: a.image_url || '',
@@ -1078,7 +1097,7 @@ async function chargerParCategorie(cat) {
     }
   } catch(e) {
     if (sectionGrid) sectionGrid.innerHTML = '';
-    else if (grid) renderArticles('articles-grid', FALLBACK.une);
+    else if (grid) grid.innerHTML = '<div style="padding:20px;text-align:center;font-size:.72rem;color:var(--mid)">Erreur de chargement</div>';
   }
 }
 
@@ -1088,15 +1107,21 @@ setInterval(() => {
   chargerArticlesBizzi();
 }, 5 * 60 * 1000);
 
-// Charger toutes les sections au démarrage
+// Sections par catégorie : étanches à la région active.
+// On filtre via /content/list?category=X&region=<region active>.
+// Si pas de région active → on ne charge RIEN (édition régionale demande une région).
 async function chargerSection(cat, gridId) {
+  if (!REGION_ACTIVE) return;  // Pas de section sans région — pas de fuite nationale
   try {
-    const r = await fetch(BIZZI_API + '/content/list?category=' + encodeURIComponent(cat) + '&limit=4', {headers:{'Authorization':'Bearer ' + BIZZI_TOKEN}});
+    const url = BIZZI_API + '/content/list?category=' + encodeURIComponent(cat) +
+                '&region=' + encodeURIComponent(REGION_ACTIVE) + '&limit=4';
+    const r = await fetch(url, {headers:{'Authorization':'Bearer ' + BIZZI_TOKEN}});
     const data = await r.json();
     if (data && data.length > 0) {
       const articles = data.map(a => ({
+        slug: a.slug || '',
         cat: a.category || cat,
-        title: a.topic,
+        title: a.title,
         desc: (a.content||'').replace(/[#*\n]/g,' ').substring(0,140) + '...',
         content: a.content,
         image: a.image_url || '',
@@ -1108,25 +1133,31 @@ async function chargerSection(cat, gridId) {
   } catch(e) {}
 }
 
-chargerSection('Economie', 'eco-grid');
-chargerSection('Sport', 'sport-grid');
-chargerSection('Culture', 'culture-grid');
-chargerSection('Tech', 'tech-grid');
-chargerSection('Sante', 'sante-grid');
-chargerSection('Environnement', 'environnement-grid');
+// Pas d'appel automatique : ces sections seront chargées une fois la région active connue
+// (depuis le bloc qui lit ?r=... ci-dessous).
 
-// Lire le paramètre ?r= au chargement
+// Lire le paramètre ?r= au chargement.
+// Si pas de ?r=, on redirige vers /regions.html (la page d'aiguillage).
 (function() {
   const params = new URLSearchParams(window.location.search);
   const r = params.get('r');
-  if (!r) return;
+  if (!r) {
+    window.location.replace('/regions.html');
+    return;
+  }
 
   REGION_ACTIVE = r;
 
-  // Titre et meta
+  // Titre et meta + canonical
   document.title = r + ' — Onyx Infos | Actualités régionales';
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.setAttribute('content', 'Toute l\'actualité de ' + r + ' en temps réel sur Onyx Infos.');
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', 'https://onyx-infos.fr/region.html?r=' + encodeURIComponent(r));
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) ogUrl.setAttribute('content', 'https://onyx-infos.fr/region.html?r=' + encodeURIComponent(r));
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', r + ' — Onyx Infos');
 
   // Nom région dans la nav
   const navRegion = document.getElementById('nav-region-label');
@@ -1139,6 +1170,14 @@ chargerSection('Environnement', 'environnement-grid');
   const bandeauTxt = document.getElementById('region-bandeau-txt');
   if (bandeau) bandeau.style.display = 'flex';
   if (bandeauTxt) bandeauTxt.textContent = '📍 Édition ' + r;
+
+  // Maintenant qu'on a la région, charger les sections par catégorie filtrées par région
+  chargerSection('Economie', 'eco-grid');
+  chargerSection('Sport', 'sport-grid');
+  chargerSection('Culture', 'culture-grid');
+  chargerSection('Tech', 'tech-grid');
+  chargerSection('Sante', 'sante-grid');
+  chargerSection('Environnement', 'environnement-grid');
 })();
 </script>
 </body>

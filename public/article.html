@@ -71,6 +71,31 @@ nav{background:var(--noir2);border-bottom:1px solid rgba(255,255,255,.06);positi
 .share-btn-cp{background:transparent;color:var(--w2);border:1px solid rgba(255,255,255,.15)}
 
 /* ARTICLES LIÉS */
+.comments-section{max-width:760px;margin:0 auto;padding:32px 40px 48px;border-top:1px solid rgba(255,255,255,.08)}
+.comments-title{font-family:var(--C);font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);margin-bottom:24px}
+.comment-form{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);padding:20px;margin-bottom:32px}
+.comment-form input,.comment-form textarea{width:100%;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);color:var(--w);padding:10px 14px;font-family:var(--B);font-size:.85rem;margin-bottom:12px;box-sizing:border-box}
+.comment-form input:focus,.comment-form textarea:focus{outline:none;border-color:var(--rouge)}
+.comment-form textarea{min-height:90px;resize:vertical}
+.comment-form button{background:var(--rouge);color:#fff;border:none;padding:10px 24px;font-family:var(--C);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.comment-form button:hover{background:#a00000}
+.comment-form button:disabled{opacity:.5;cursor:not-allowed}
+.comment-form .honey{position:absolute;left:-9999px}
+.comment-form-msg{margin-top:8px;font-size:.78rem;font-family:var(--B)}
+.comment-form-msg.ok{color:#4ade80}
+.comment-form-msg.err{color:#f87171}
+.comment-item{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.comment-item:last-child{border-bottom:none}
+.comment-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:.78rem}
+.comment-author{font-family:var(--D);color:var(--w);font-weight:700}
+.comment-time{color:var(--mid);font-size:.7rem}
+.comment-content{color:var(--w2);font-size:.88rem;line-height:1.6;white-space:pre-wrap}
+.comment-actions{margin-top:8px;display:flex;gap:16px;font-size:.72rem;color:var(--mid)}
+.comment-actions button{background:none;border:none;color:var(--mid);cursor:pointer;font-family:var(--B);font-size:.72rem;padding:0}
+.comment-actions button:hover{color:var(--rouge)}
+.comment-replies{margin-top:12px;padding-left:24px;border-left:2px solid rgba(204,0,0,.3)}
+.comment-empty{color:var(--mid);font-style:italic;padding:20px 0;text-align:center;font-size:.85rem}
+@media (max-width:760px){.comments-section{padding:24px 16px}}
 .related{max-width:760px;margin:0 auto;padding:0 40px 60px}
 .related-title{font-family:var(--C);font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--mid);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)}
 .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -101,7 +126,12 @@ nav{background:var(--noir2);border-bottom:1px solid rgba(255,255,255,.06);positi
       <span>ONYX</span>
       <span>INFOS</span>
     </a>
-    <a href="/" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.5);text-decoration:none;border:1px solid rgba(255,255,255,.1);padding:8px 16px">← Accueil</a>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="/" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">← Accueil</a>
+      <a href="/equipe" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">L'équipe</a>
+      <a href="/regions.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">🗺 Régions</a>
+      <a href="/onyx-archives.html" style="font-family:Barlow Condensed,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,245,240,.6);text-decoration:none;padding:8px 12px;border:1px solid rgba(255,255,255,.1);white-space:nowrap">Archives</a>
+    </div>
   </div>
 </nav>
 
@@ -125,6 +155,39 @@ function setMeta(title, desc, img, url) {
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
   canonical.href = url;
+}
+
+// JSON-LD schema.org NewsArticle (Google News + Discover)
+function setLdNewsArticle(article, pageUrl, imgUrl, time) {
+  const SITE = 'https://onyx-infos.fr';
+  const author = (article.journalist_slug && article.journalist_name) ? {
+    "@type": "Person",
+    "@id": `${SITE}/auteur/${article.journalist_slug}#person`,
+    "name": article.journalist_name,
+    "url": `${SITE}/auteur/${article.journalist_slug}`,
+    "image": article.journalist_photo ? (article.journalist_photo.startsWith('http') ? article.journalist_photo : SITE + article.journalist_photo) : undefined,
+  } : { "@type": "Organization", "name": "Onyx Infos", "url": SITE };
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl },
+    "headline": article.title,
+    "description": (article.content || '').replace(/[#*\n]/g, ' ').substring(0, 200),
+    "image": imgUrl ? [imgUrl] : undefined,
+    "datePublished": new Date(article.created_at).toISOString(),
+    "dateModified": new Date(article.created_at).toISOString(),
+    "author": author,
+    "publisher": {
+      "@type": "NewsMediaOrganization",
+      "name": "Onyx Infos",
+      "url": SITE,
+      "logo": { "@type": "ImageObject", "url": SITE + "/onyx-logo.svg" }
+    },
+    "articleSection": article.category || "Actualité"
+  };
+  let s = document.getElementById('ld-newsarticle');
+  if (!s) { s = document.createElement('script'); s.id = 'ld-newsarticle'; s.type = 'application/ld+json'; document.head.appendChild(s); }
+  s.textContent = JSON.stringify(ld);
 }
 
 function getSlug() {
@@ -184,25 +247,44 @@ async function charger() {
     const desc = (article.content||'').replace(/[#*\n]/g,' ').substring(0, 160);
     const time = new Date(article.created_at).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'});
 
-    setMeta(article.topic, desc, imgUrl, pageUrl);
+    setMeta(article.title, desc, imgUrl, pageUrl);
+    setLdNewsArticle(article, pageUrl, imgUrl, time);
 
     const lies = data.filter(a => a.slug !== slug && a.category === article.category && a.slug).slice(0,3);
 
     document.getElementById('app').innerHTML = `
       <div class="article-hero">
-        ${imgUrl ? `<img src="${imgUrl}" alt="${article.topic}" onerror="this.style.display='none'">` : ''}
+        ${imgUrl ? `<img src="${imgUrl}" alt="${article.title}" onerror="this.style.display='none'">` : ''}
         <div class="article-hero-overlay"></div>
         <div class="article-hero-content">
           <div style="font-family:Barlow Condensed,sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#cc0000;margin-bottom:12px">${article.category || 'Info'}</div>
-          <h1 style="font-family:Playfair Display,serif;font-size:clamp(1.4rem,4vw,2.4rem);font-weight:900;line-height:1.15;color:#f5f5f0;margin-bottom:16px">${article.topic}</h1>
-          <div style="font-family:Barlow,sans-serif;font-size:.75rem;color:rgba(245,245,240,.6);display:flex;gap:12px;align-items:center">
-            <span>Par la rédaction d'Onyx Infos</span><span>·</span><span>${time}</span>
+          <h1 style="font-family:Playfair Display,serif;font-size:clamp(1.4rem,4vw,2.4rem);font-weight:900;line-height:1.15;color:#f5f5f0;margin-bottom:16px">${article.title}</h1>
+          <div style="font-family:Barlow,sans-serif;font-size:.78rem;color:rgba(245,245,240,.7);display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            ${article.journalist_slug && article.journalist_name ? `
+              <a href="/auteur/${article.journalist_slug}" style="display:flex;gap:9px;align-items:center;color:rgba(245,245,240,.92);text-decoration:none">
+                ${article.journalist_photo ? `<img src="${article.journalist_photo.startsWith('http')?article.journalist_photo:'https://onyx-infos.fr'+article.journalist_photo}" alt="${article.journalist_name}" style="width:30px;height:30px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,.18)">` : ''}
+                <span style="font-weight:600">Par ${article.journalist_name}</span>
+              </a>
+            ` : `<span>Par La rédaction</span>`}
+            <span>·</span><span>${time}</span>
           </div>
         </div>
       </div>
       <div class="article-wrap">
         <div class="article-body">${formatContent(article.content)}</div>
-        ${shareBtns(article.topic, pageUrl)}
+        ${shareBtns(article.title, pageUrl)}
+      </div>
+      <div class="comments-section">
+        <div class="comments-title">Commentaires (<span id="comments-count">0</span>)</div>
+        <div class="comment-form">
+          <input type="text" id="c-name" placeholder="Votre pseudo" maxlength="80">
+          <input type="email" id="c-email" placeholder="Email (optionnel, non publié)" maxlength="200">
+          <textarea id="c-content" placeholder="Partagez votre avis sur cet article..." maxlength="2000"></textarea>
+          <input type="text" class="honey" id="c-website" tabindex="-1" autocomplete="off">
+          <button id="c-submit" onclick="envoyerCommentaire()">Publier</button>
+          <div id="c-msg" class="comment-form-msg"></div>
+        </div>
+        <div id="comments-list"></div>
       </div>
       ${lies.length > 0 ? `
       <div class="related">
@@ -214,17 +296,117 @@ async function charger() {
               ${aImg ? `<img src="${aImg}" alt="" onerror="this.style.display='none'">` : ''}
               <div class="related-card-body">
                 <div class="related-card-cat">${a.category||'Info'}</div>
-                <div class="related-card-title">${a.topic}</div>
+                <div class="related-card-title">${a.title}</div>
               </div>
             </div>`;
           }).join('')}
         </div>
       </div>` : ''}
     `;
+    if (article.id) chargerCommentaires(article.id);
   } catch(e) {
     document.getElementById('app').innerHTML = '<div class="loading">Erreur de chargement.</div>';
   }
 }
+
+let CURRENT_ARTICLE_ID = null;
+let REPLY_TO = null;
+
+async function chargerCommentaires(articleId) {
+  CURRENT_ARTICLE_ID = articleId;
+  try {
+    const r = await fetch(BIZZI_API + '/comments?production_id=' + articleId);
+    const data = await r.json();
+    const list = document.getElementById('comments-list');
+    const count = document.getElementById('comments-count');
+    if (count) count.textContent = data.total || 0;
+    if (!list) return;
+    if (!data.comments || data.comments.length === 0) {
+      list.innerHTML = '<div class="comment-empty">Aucun commentaire pour le moment. Soyez le premier !</div>';
+      return;
+    }
+    list.innerHTML = data.comments.map(renderComment).join('');
+  } catch(e) { console.error('Erreur commentaires:', e); }
+}
+
+function renderComment(c) {
+  const time = new Date(c.created_at).toLocaleString('fr-FR', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'});
+  const replies = (c.replies || []).map(r => '<div class="comment-item"><div class="comment-head"><span class="comment-author">' + escapeHtml(r.author_name) + '</span><span class="comment-time">' + new Date(r.created_at).toLocaleString('fr-FR', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) + '</span></div><div class="comment-content">' + escapeHtml(r.content) + '</div></div>').join('');
+  return '<div class="comment-item"><div class="comment-head"><span class="comment-author">' + escapeHtml(c.author_name) + '</span><span class="comment-time">' + time + '</span></div><div class="comment-content">' + escapeHtml(c.content) + '</div><div class="comment-actions"><button onclick="repondreA(' + c.id + ', \'' + escapeHtml(c.author_name).replace(/'/g, "\\'") + '\')">Répondre</button></div>' + (replies ? '<div class="comment-replies">' + replies + '</div>' : '') + '</div>';
+}
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function repondreA(parentId, authorName) {
+  REPLY_TO = parentId;
+  const ta = document.getElementById('c-content');
+  ta.placeholder = 'Répondre à ' + authorName + '... (cliquez pour annuler)';
+  ta.focus();
+  ta.onclick = () => {
+    if (REPLY_TO) {
+      REPLY_TO = null;
+      ta.placeholder = 'Partagez votre avis sur cet article...';
+      ta.onclick = null;
+    }
+  };
+}
+
+async function envoyerCommentaire() {
+  const name = document.getElementById('c-name').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const content = document.getElementById('c-content').value.trim();
+  const website = document.getElementById('c-website').value;
+  const btn = document.getElementById('c-submit');
+  const msg = document.getElementById('c-msg');
+  msg.className = 'comment-form-msg';
+  msg.textContent = '';
+  if (!name || name.length < 2) { msg.className='comment-form-msg err'; msg.textContent='Pseudo requis'; return; }
+  if (!content || content.length < 3) { msg.className='comment-form-msg err'; msg.textContent='Commentaire trop court'; return; }
+  if (!CURRENT_ARTICLE_ID) { msg.className='comment-form-msg err'; msg.textContent='Article non identifié'; return; }
+  btn.disabled = true;
+  btn.textContent = 'Envoi...';
+  try {
+    const r = await fetch(BIZZI_API + '/comments', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        production_id: CURRENT_ARTICLE_ID,
+        author_name: name,
+        author_email: email || null,
+        content: content,
+        parent_id: REPLY_TO,
+        website: website
+      })
+    });
+    const data = await r.json();
+    if (data.status === 'published') {
+      msg.className = 'comment-form-msg ok';
+      msg.textContent = 'Commentaire publié !';
+      document.getElementById('c-content').value = '';
+      REPLY_TO = null;
+      document.getElementById('c-content').placeholder = 'Partagez votre avis sur cet article...';
+      chargerCommentaires(CURRENT_ARTICLE_ID);
+    } else if (data.status === 'pending') {
+      msg.className = 'comment-form-msg ok';
+      msg.textContent = 'Commentaire en attente de modération.';
+      document.getElementById('c-content').value = '';
+      REPLY_TO = null;
+    } else {
+      msg.className = 'comment-form-msg err';
+      msg.textContent = data.message || 'Commentaire refusé';
+    }
+  } catch(e) {
+    msg.className = 'comment-form-msg err';
+    msg.textContent = 'Erreur réseau, réessayez';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Publier';
+  }
+}
+
 
 charger();
 </script>

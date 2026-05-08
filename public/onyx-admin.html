@@ -156,6 +156,17 @@ const STORAGE_KEY = 'onyx_bizzi_token';
 
 // ── INIT ──
 window.addEventListener('DOMContentLoaded', () => {
+  // Raccourci : ?token=... dans l'URL → connexion automatique + nettoyage de l'URL
+  const qToken = new URLSearchParams(location.search).get('token');
+  if (qToken) {
+    localStorage.setItem(STORAGE_KEY, qToken);
+    document.getElementById('api-key').value = qToken;
+    const u = new URL(location.href);
+    u.searchParams.delete('token');
+    history.replaceState(null, '', u.toString());
+    verifierConnexion(qToken);
+    return;
+  }
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
     document.getElementById('api-key').value = saved;
