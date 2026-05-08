@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'équipe — Onyx Infos</title>
+<meta name="description" content="La rédaction d'Onyx Infos : journalistes, spécialités, parcours.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="L'équipe — Onyx Infos">
+<meta property="og:description" content="La rédaction d'Onyx Infos.">
+<meta property="og:url" content="https://onyx-infos.fr/equipe">
+<link rel="canonical" href="https://onyx-infos.fr/equipe">
+<link rel="icon" type="image/svg+xml" href="/onyx-logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#080808;--noir2:#111111;--noir3:#1a1a1a;
+  --rouge:#cc0000;--w:#f5f5f0;--w2:rgba(245,245,240,.7);--w3:rgba(245,245,240,.4);
+  --mid:#555550;
+  --D:'Playfair Display',serif;--B:'Barlow',sans-serif;--C:'Barlow Condensed',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--B);background:var(--noir);color:var(--w);-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--noir2)}::-webkit-scrollbar-thumb{background:#8b0000}
+
+/* NAV */
+nav{background:var(--noir2);border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;z-index:100}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:64px;max-width:1200px;margin:0 auto}
+.nav-logo{display:flex;flex-direction:column;line-height:1}
+.nav-logo span:first-child{font-family:var(--C);font-size:1.6rem;font-weight:900;letter-spacing:.02em;color:var(--w)}
+.nav-logo span:last-child{font-family:var(--C);font-size:.55rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--rouge)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-family:var(--C);font-size:.85rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--w2);transition:color .15s}
+.nav-links a:hover{color:var(--rouge)}
+.nav-links a.on{color:var(--rouge)}
+
+/* HEADER */
+header.page-h{padding:60px 40px 40px;max-width:1200px;margin:0 auto}
+.kicker{font-family:var(--C);font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);margin-bottom:8px}
+h1.page-title{font-family:var(--D);font-weight:900;font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;letter-spacing:-.02em;color:var(--w);margin-bottom:14px}
+.page-lead{font-family:var(--B);font-size:1.05rem;line-height:1.6;color:var(--w2);max-width:700px}
+
+/* GRID */
+.team-wrap{padding:0 40px 80px;max-width:1200px;margin:0 auto}
+.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:30px}
+.member{background:var(--noir2);border:1px solid rgba(255,255,255,.06);border-radius:0;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .25s,border-color .25s}
+.member:hover{transform:translateY(-3px);border-color:var(--rouge)}
+.member-photo{width:100%;aspect-ratio:3/4;background:var(--noir3) center/cover no-repeat;border-bottom:2px solid var(--rouge)}
+.member-body{padding:22px 24px 26px;flex:1;display:flex;flex-direction:column}
+.member-spec{font-family:var(--C);font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--rouge);margin-bottom:6px}
+.member-name{font-family:var(--D);font-weight:900;font-size:1.4rem;line-height:1.15;color:var(--w);margin-bottom:14px}
+.member-bio{font-family:var(--B);font-size:.92rem;line-height:1.5;color:var(--w2);margin-bottom:18px;flex:1}
+.member-cta{font-family:var(--C);font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--rouge)}
+.member-cta::after{content:' →';transition:transform .2s;display:inline-block}
+.member:hover .member-cta::after{transform:translateX(4px)}
+
+.empty{text-align:center;padding:80px 0;color:var(--w3);font-size:.95rem}
+
+footer{border-top:1px solid rgba(255,255,255,.06);padding:30px 40px;text-align:center;color:var(--w3);font-family:var(--C);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+</style>
+
+<!-- JSON-LD : page équipe rédactionnelle (compatible Google News) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": "https://onyx-infos.fr/equipe",
+  "name": "L'équipe — Onyx Infos",
+  "description": "La rédaction d'Onyx Infos : journalistes, spécialités, parcours.",
+  "url": "https://onyx-infos.fr/equipe",
+  "mainEntity": {
+    "@type": "NewsMediaOrganization",
+    "name": "Onyx Infos",
+    "url": "https://onyx-infos.fr",
+    "logo": "https://onyx-infos.fr/onyx-logo.svg"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Onyx Infos", "item": "https://onyx-infos.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "L'équipe", "item": "https://onyx-infos.fr/equipe"}
+    ]
+  }
+}
+</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><span>ONYX</span><span>Infos</span></a>
+  <div class="nav-links">
+    <a href="/">Accueil</a>
+    <a href="/equipe" class="on">L'équipe</a>
+    <a href="/onyx-archives.html">Archives</a>
+  </div>
+</nav>
+
+<header class="page-h">
+  <div class="kicker">La rédaction</div>
+  <h1 class="page-title">L'équipe d'Onyx Infos</h1>
+  <p class="page-lead">Sept journalistes, sept spécialités, une seule règle : sourcer chaque fait. Cliquez sur un nom pour découvrir leur parcours et leurs derniers articles.</p>
+</header>
+
+<div class="team-wrap">
+  <div class="team" id="team"><div class="empty">Chargement de la rédaction…</div></div>
+</div>
+
+<footer>© Onyx Infos — La rédaction</footer>
+
+<script>
+const API = 'https://onyx-infos.fr/api';
+
+async function loadTeam() {
+  try {
+    const r = await fetch('https://bizzi.fr/api/agents/public/list?tenant=onyx');
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    const html = d.agents.map(a => `
+      <a class="member" href="/auteur/${a.slug}">
+        <div class="member-photo" style="background-image:url('${a.photo_url}')"></div>
+        <div class="member-body">
+          <div class="member-spec">${(a.specialty || '').replace(/</g,'&lt;')}</div>
+          <div class="member-name">${(a.name || '').replace(/</g,'&lt;')}</div>
+          <div class="member-bio">${(a.bio_public || '').replace(/</g,'&lt;')}</div>
+          <div class="member-cta">Lire ses articles</div>
+        </div>
+      </a>
+    `).join('');
+    document.getElementById('team').innerHTML = html || '<div class="empty">Aucun journaliste trouvé.</div>';
+  } catch (e) {
+    document.getElementById('team').innerHTML = `<div class="empty">Erreur : ${e.message}</div>`;
+  }
+}
+
+loadTeam();
+</script>
+</body>
+</html>
